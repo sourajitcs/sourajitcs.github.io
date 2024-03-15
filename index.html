@@ -8,7 +8,21 @@
   <meta charset="utf-8">
   <title>Sourajit Saha | Homepage</title>
   <style>
-      #more {display: none;}
+      #more_news {display: none;}
+      #more_news_button {
+            background-color: lightblue; /* Background color */
+            border: none; /* Removes the border */
+            color: white; /* Text color */
+            padding: 10px 20px; /* Some padding */
+            text-align: center; /* Center-align text */
+            text-decoration: none; /* No underlines on the text */
+            display: inline-block; /* Set a line height */
+            font-size: 16px; /* Set font size */
+            margin: 4px 2px; /* Add some margin */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            border-radius: 5px; /* Optional: just to add a little rounding to corners */
+        }
+    
   </style>
   <link rel="icon" href="/soura_profile.jpg" type="image/x-icon">
   <meta name="description" content="Homepage: Sourajit Saha">
@@ -178,9 +192,9 @@
   <li><b>Sep 2023:</b> Joined UMBC Robust Perception Group (RPG), lead by <a href="https://www.tejasgokhale.com/"> Tejas Gokhale</a>.</li>
   <li style="color:red";><b>Aug 2023:</b> One paper accepted at ICCV 2023 in OODCV, Paris, France.</li>
 </ul>
-<button onclick="myFunction()" id="myBtn">Read more</button> Click to see older news
+<button onclick="myFunction()" id="more_news_button">Read more</button> Click to see older news
 </div> 
-<div id="more" style="display:none;">
+<div id="more_news" style="display:none;">
     <ul>
       <li><b>May 2023:</b> I got my Masters in Computer Science at UMBC in Spring 2023.</li>
       <li><b>Oct 2022:</b> One paper accepted at <a href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf"> AAAI 2023</a> in Washington D.C.</li>
@@ -198,12 +212,12 @@
     
 <script>
 function myFunction() {
-  var moreText = document.getElementById("more");
-  var btnText = document.getElementById("myBtn");
+  var moreText = document.getElementById("more_news");
+  var btnText = document.getElementById("more_news_button");
 
   if (moreText.style.display === "none") {
     moreText.style.display = "inline";
-    btnText.innerHTML = "Read less"; 
+    btnText.innerHTML = "See less"; 
   } else {
     moreText.style.display = "none";
     btnText.innerHTML = "Read more"; 
