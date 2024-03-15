@@ -7,6 +7,9 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Sourajit Saha | Homepage</title>
+  <style>
+      #more {display: none;}
+  </style>
   <link rel="icon" href="/soura_profile.jpg" type="image/x-icon">
   <meta name="description" content="Homepage: Sourajit Saha">
   <meta name="author" content="Sourajit Saha">
@@ -133,7 +136,7 @@
 <div class="docs-section" id="bio">
   <h5>Bio</h5>
   <p>
-    <span style="font-family:'Candara Light';">
+    <span">
       I am currently pursuing PhD in Computer Science at University of Maryland, Baltimore County (UMBC). I am advised by Prof. 
       <a href="https://www.csee.umbc.edu/tejas-gokhale/">Tejas Gokhale</a>
        and I work at reliable computer vision research in the 
@@ -174,19 +177,40 @@
   <li><b>Oct 2023:</b> Reviewing manuscripts for AAAI 2024 (student abstract).</li>
   <li style="color:green";><b>Sep 2023:</b> Joined UMBC Robust Perception Group (RPG), lead by <a href="https://www.tejasgokhale.com/"> Tejas Gokhale</a>.</li>
   <li style="color:red";><b>Aug 2023:</b> One paper accepted at ICCV 2023 in OODCV, Paris, France.</li>
-  <li><b>May 2023:</b> I got my Masters in Computer Science at UMBC in Spring 2023.</li>
-  <li><b>Oct 2022:</b> One paper accepted at <a href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf"> AAAI 2023</a> in Washington D.C.</li>
-  <li><b>Mar 2022:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448"> IEEE ACCESS</a>.</li>
-  <li><b>Oct 2021:</b> One paper accepted at <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/PC12033/PC1203302/Pairwise-meta-learning-pipeline--classifying-COVID-19-abnormalities-on/10.1117/12.2613235.short?SSO=1"> SPIE Medical Imaging Conference 2022</a> in San Diego.</li>
-  <li><b>Summer 2021:</b> I was a Machine Learning intern at VIPAR Lab (Vision Image Processing Algorithms Research Lab), UMBC.</li>
-  <li><b>Jan 2021:</b> I joined UMBC for grad school.</li>
-  <li><b>Sep 2020:</b> One book chapter published in <a href="https://link.springer.com/chapter/10.1007/978-981-15-6759-9_2"> Part of the Advances in Intelligent Systems and Computing book series</a>, Springer.</li>
-  <li><b>Dec 2019:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/abstract/document/8999264"> ICMLA 2019</a> in Florida.</li>
-  <li><b>Feb 2019:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/abstract/document/8631925"> ICCIT 2018</a> in Dhaka.</li>
-  <li><b>Dec 2018:</b> One paper accepted at <a href="https://www.sciencedirect.com/science/article/pii/S1877050918308858"> ELSEVIER - Procedia Computer Science</a>.</li>
-  <li><b>Jul 2018:</b> I joined IUB as a Research Assistant.</li>
 </ul>
+<p>Click to see older news.</p>
 </div> 
+<button onclick="myFunction()" id="myBtn">Read more</button>
+<div id="more" style="display:none;">
+    <ul>
+      <li><b>May 2023:</b> I got my Masters in Computer Science at UMBC in Spring 2023.</li>
+      <li><b>Oct 2022:</b> One paper accepted at <a href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf"> AAAI 2023</a> in Washington D.C.</li>
+      <li><b>Mar 2022:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448"> IEEE ACCESS</a>.</li>
+      <li><b>Oct 2021:</b> One paper accepted at <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/PC12033/PC1203302/Pairwise-meta-learning-pipeline--classifying-COVID-19-abnormalities-on/10.1117/12.2613235.short?SSO=1"> SPIE Medical Imaging Conference 2022</a> in San Diego.</li>
+      <li><b>Summer 2021:</b> I was a Machine Learning intern at VIPAR Lab (Vision Image Processing Algorithms Research Lab), UMBC.</li>
+      <li><b>Jan 2021:</b> I joined UMBC for grad school.</li>
+      <li><b>Sep 2020:</b> One book chapter published in <a href="https://link.springer.com/chapter/10.1007/978-981-15-6759-9_2"> Part of the Advances in Intelligent Systems and Computing book series</a>, Springer.</li>
+      <li><b>Dec 2019:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/abstract/document/8999264"> ICMLA 2019</a> in Florida.</li>
+      <li><b>Feb 2019:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/abstract/document/8631925"> ICCIT 2018</a> in Dhaka.</li>
+      <li><b>Dec 2018:</b> One paper accepted at <a href="https://www.sciencedirect.com/science/article/pii/S1877050918308858"> ELSEVIER - Procedia Computer Science</a>.</li>
+      <li><b>Jul 2018:</b> I joined IUB as a Research Assistant.</li>
+    </ul>
+</div>
+    
+<script>
+function myFunction() {
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (moreText.style.display === "none") {
+    moreText.style.display = "inline";
+    btnText.innerHTML = "Read less"; 
+  } else {
+    moreText.style.display = "none";
+    btnText.innerHTML = "Read more"; 
+  }
+}
+</script>
  
 <!-- ========== PUBLICATIONS ========== -->
 <div class="docs-section" id="publications">
