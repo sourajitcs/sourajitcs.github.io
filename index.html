@@ -194,7 +194,7 @@
   <li><b>Sep 2023:</b> Joined Perception Prediction and Reasoning Lab, lead by <a href="https://www.tejasgokhale.com/"> Tejas Gokhale</a>.</li>
   <li style="color:red";><b>Aug 2023:</b> One paper accepted at ICCV 2023 in OODCV, Paris, France.</li>
 </ul>
-<button onclick="myFunction()" id="more_news_button">Read more</button> Click to see older news
+<button class="button" onclick="myFunction()" id="more_news_button">Read more</button> Click to see older news
 </div> 
 <div id="more_news" style="display:none;">
     <ul>
@@ -298,7 +298,7 @@ function myFunction() {
       <i>ICCIT 2018</i>
       <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8631925" target="_blank">Paper</a>
       <a class="button" href="https://github.com/sourajitcs/DilatedSkipTotalRecall" target="_blank">Code</a>
-      <button onclick="cite_001_func()" id="cite_001_button">Cite</button>
+      <button class="button" onclick="cite_001_func()" id="cite_001_button">Cite</button>
         <div id="more_cite_001" style="display:none;">
           @inproceedings{saha2023rfc,
             title={RFC-net: learning high resolution global features for medical image segmentation on a computational budget (student abstract)},
@@ -311,7 +311,7 @@ function myFunction() {
           }
         </div> 
         <script>
-          function myFunction() {
+          function cite_001_func() {
             var moreText = document.getElementById("more_cite_001");
             var btnText = document.getElementById("cite_001_button");
           
