@@ -298,7 +298,7 @@ function myFunction() {
       <i>ICCIT 2018</i>
       <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8631925" target="_blank">Paper</a>
       <a class="button" href="https://github.com/sourajitcs/DilatedSkipTotalRecall" target="_blank">Code</a>
-      <button onclick="myFunction()" id="cite_001_button">Cite</button>
+      <button onclick="cite_001_func()" id="cite_001_button">Cite</button>
         <div id="more_cite_001" style="display:none;">
           @inproceedings{saha2023rfc,
             title={RFC-net: learning high resolution global features for medical image segmentation on a computational budget (student abstract)},
@@ -310,6 +310,20 @@ function myFunction() {
             year={2023}
           }
         </div> 
+        <script>
+          function myFunction() {
+            var moreText = document.getElementById("more_cite_001");
+            var btnText = document.getElementById("cite_001_button");
+          
+            if (moreText.style.display === "none") {
+              moreText.style.display = "inline";
+              btnText.innerHTML = "See less"; 
+            } else {
+              moreText.style.display = "none";
+              btnText.innerHTML = "Read more"; 
+            }
+          }
+          </script>
     </p>
   </div>
 </div>
