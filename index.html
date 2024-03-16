@@ -10,21 +10,35 @@
   <style>
       #more_news {display: none;}
       #more_cite001 {display: none;}
+      .button {
+          display: inline-block; /* Aligns items in a line and respects width and height */
+          width: 100px; /* Set a fixed width */
+          height: 50px; /* Set a fixed height */
+          padding: 10px; /* Add some padding */
+          background-color: purple; /* Set a background color */
+          color: white; /* Set text color */
+          text-align: center; /* Center-align text */
+          line-height: 30px; /* Center text vertically */
+          text-decoration: none; /* Remove underlines from links */
+          border: none; /* Remove borders */
+          cursor: pointer; /* Change mouse cursor to pointer */
+          border-radius: 5px; /* Optional: adds rounded corners */
+      }
       #more_news_button {
-            background-color: lightblue; 
-            border: none; 
-            color: black;
-            padding: 1px 2px; 
-            text-align: center; 
-            text-decoration: none; 
-            display: inline-block; 
-            font-size: 16px;
-            margin: 1px 1px; 
-            cursor: pointer; 
-            border-radius: 5px; 
-            line-height: 1.5;
-        }
-    
+          background-color: lightblue; 
+          border: none; 
+          color: black;
+          padding: 1px 2px; 
+          text-align: center; 
+          text-decoration: none; 
+          display: inline-block; 
+          font-size: 16px;
+          margin: 1px 1px; 
+          cursor: pointer; 
+          border-radius: 5px; 
+          line-height: 1.5;
+      }
+  
   </style>
   <link rel="icon" href="/soura_profile.jpg" type="image/x-icon">
   <meta name="description" content="Homepage: Sourajit Saha">
@@ -244,8 +258,8 @@ function myFunction() {
     <p class="title">RFC-Net: Learning High Resolution Global Features for Medical Image Segmentation on a Computational Budget (Student Abstract). Sourajit Saha, Shaswati Saha, Md Osman Gani, Tim Oates, David Chapman</p>
     <p>
       <i>AAAI 2023</i>
-      <a class="button" href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf" target="_blank">Paper</a>
-      <a class="button" href="https://github.com/sourajitcs/RFC-NetAAAI23" target="_blank">Code</a>
+      <a class="button" href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf" target="_blank">paper</a>
+      <a class="button" href="https://github.com/sourajitcs/RFC-NetAAAI23" target="_blank">code</a>
     </p>
   </div>
   <hr style="border: 1px dashed red" />
@@ -253,8 +267,8 @@ function myFunction() {
     <p class="title">Mitigating Domain Shift in AI-Based TB Screening With Unsupervised Domain Adaptation. Nishanjan Ravin, Sourajit Saha, Alan Schweitzer, Ameena Elahi, Farouk Dako, Daniel Mollura, David Chapman</p>
     <p>
       <i>IEEE Access</i>
-      <a class="button" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448" target="_blank">Paper</a>
-      <a class="button" href="https://github.com/sourajitcs/DIFL" target="_blank">Code</a>
+      <a class="button" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448" target="_blank">paper</a>
+      <a class="button" href="https://github.com/sourajitcs/DIFL" target="_blank">code</a>
     </p>
   </div>
   <hr style="border: 1px dashed blue" />
@@ -270,8 +284,8 @@ function myFunction() {
     <p class="title">A comprehensive set of novel residual blocks for deep learning architectures for diagnosis of retinal diseases from optical coherence tomography images. Sharif Amit Kamran, Sourajit Saha, Ali Shihab Sabbir, Alireza Tavakkoli</p>
     <p>
       <i>Springer Book Series, 2020</i>
-      <a class="button" href="https://link.springer.com/chapter/10.1007/978-981-15-6759-9_2" target="_blank">Paper</a>
-      <a class="button" href="https://github.com/SharifAmit/OpticNet-71" target="_blank">Code</a>
+      <a class="button" href="https://link.springer.com/chapter/10.1007/978-981-15-6759-9_2" target="_blank">paper</a>
+      <a class="button" href="https://github.com/SharifAmit/OpticNet-71" target="_blank">code</a>
     </p>
   </div>
   <hr style="border: 1px dashed blue" />
@@ -279,8 +293,8 @@ function myFunction() {
     <p class="title">Optic-Net: A Novel Convolutional Neural Network for Diagnosis of Retinal Diseases from Optical Tomography Images. Sharif Amit Kamran, Sourajit Saha, Ali Shihab Sabbir, Alireza Tavakkoli</p>
     <p>
       <i>ICMLA 2019</i>
-      <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8999264" target="_blank">Paper</a>
-      <a class="button" href="https://github.com/SharifAmit/OpticNet-71" target="_blank">Code</a>
+      <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8999264" target="_blank">paper</a>
+      <a class="button" href="https://github.com/SharifAmit/OpticNet-71" target="_blank">code</a>
     </p>
   </div>
   <hr style="border: 1px dashed red" />
@@ -296,9 +310,9 @@ function myFunction() {
     <p class="title">Total recall: understanding traffic signs using deep convolutional neural network. Sourajit Saha, Sharif Amit Kamran, Ali Shihab Sabbir</p>
     <p>
       <i>ICCIT 2018</i>
-      <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8631925" target="_blank">Paper</a>
-      <a class="button" href="https://github.com/sourajitcs/DilatedSkipTotalRecall" target="_blank">Code</a>
-      <button class="button" onclick="cite_001_func()" id="cite_001_button">Cite</button>
+      <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8631925" target="_blank">paper</a>
+      <a class="button" href="https://github.com/sourajitcs/DilatedSkipTotalRecall" target="_blank">code</a>
+      <button class="button" onclick="cite_001_func()" id="cite_001_button">cite</button>
         <div id="more_cite_001" style="display:none;">
           @inproceedings{saha2023rfc,
             title={RFC-net: learning high resolution global features for medical image segmentation on a computational budget (student abstract)},
@@ -317,10 +331,10 @@ function myFunction() {
           
             if (moreText.style.display === "none") {
               moreText.style.display = "inline";
-              btnText.innerHTML = "See less"; 
+              btnText.innerHTML = "hide"; 
             } else {
               moreText.style.display = "none";
-              btnText.innerHTML = "Read more"; 
+              btnText.innerHTML = "cite"; 
             }
           }
           </script>
