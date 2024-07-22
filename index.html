@@ -52,6 +52,12 @@
           cursor: pointer; /* Change mouse cursor to pointer */
           border-radius: 5px; /* Optional: adds rounded corners */
       }
+      .round-image {
+        border-radius: 50%;
+        object-fit: cover;
+        width: 100px; /* Adjust the width as needed */
+        height: 100px; /* Adjust the height as needed */
+      }
   
   </style>
   <link rel="icon" href="/sourajit_pic_24_summer.jpg" type="image/x-icon">
@@ -113,8 +119,10 @@
     <section class="header">
       <div class="row">
         <div class="three columns">
-          <!-- <a href="/"><img class="u-max-full-width" src='/profile_pic_v1.jpg'></a> -->
-          <a href="/"><img class="u-max-full-width" src='/sourajit_pic_24_summer.jpg'></a>
+          <ul class="round-image ">
+            <!-- <a href="/"><img class="u-max-full-width" src='/profile_pic_v1.jpg'></a> -->
+            <a href="/"><img class="u-max-full-width" src='/sourajit_pic_24_summer.jpg'></a>
+            </ul>
         </div>
         <div class="nine columns main-description">
             <h1>Sourajit Saha</h1>
