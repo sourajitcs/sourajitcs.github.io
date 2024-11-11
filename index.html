@@ -72,6 +72,29 @@
             color: #007acc;
             font-size: 1.2em;
         }
+        .highlight-box {
+            width: 100%;
+            background-color: #f0f8ff; /* Light blue background */
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #007acc; /* Accent border color */
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .section {
+            width: 48%;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #007acc;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        ul {
+            padding-left: 20px;
+        }
   </style>
   <link rel="icon" href="/sourajit_pic_24_summer.jpg" type="image/x-icon">
   <meta name="description" content="Homepage: Sourajit Saha">
@@ -203,9 +226,28 @@
       </div>
      </nav>
 
+
+
+<!-- ========== Highlights ========== -->
 <div class="highlight-box">
-    <p class="highlight-text">Join me on my upcoming conference travels! Stay tuned for updates on destinations, dates, and exciting events.</p>
+    <!-- First Section: Upcoming Conferences -->
+    <div class="section">
+        <p class="section-title">Upcoming Conferences:</p>
+        <ul>
+            <li>Conference A - Date, Location</li>
+            <li>Conference B - Date, Location</li>
+            <li>Conference C - Date, Location</li>
+            <!-- Add more conferences as needed -->
+        </ul>
+    </div>
+
+    <!-- Second Section: Research Internship -->
+    <div class="section">
+        <p class="section-title">Looking for Research Internship (Summer 2025)</p>
+        <p>If you're interested in collaborating on research projects, feel free to reach out!</p>
+    </div>
 </div>
+
 
 <!-- ========== Research ========== -->
 <div class="docs-section" id="bio">
