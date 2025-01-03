@@ -367,10 +367,34 @@
   <div class="paper">
     <p class="title">Improving Shift Invariance in Convolutional Neural Networks with Translation Invariant Polyphase Sampling. Sourajit Saha, Tejas Gokhale</p>
     <p>
-      <i>OOD-CV @ ICCV 2023</i>
-      <a class="button" href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf" target="_blank">To appear soon</a>
-      <!--  <a class="button" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448" target="_blank">Paper</a> -->
-      <!--  <a class="button" href="https://github.com/sourajitcs/DIFL" target="_blank">Code</a> -->
+      <i>WACV 2025 and a preliminary version at OODCV workshop -- ICCV 2023</i>
+      <a class="button" href="https://arxiv.org/pdf/2404.07410" target="_blank">paper</a>
+      <a class="https://github.com/sourajitcs/tips/" target="_blank">code</a>
+      <button class="button" onclick="cite_008_func()" id="cite_007_button">cite</button>
+        <div id="more_cite_007" style="display:none;">
+          <pre>
+            @article{saha2024improving,
+              title={Improving Shift Invariance in Convolutional Neural Networks with Translation Invariant Polyphase Sampling},
+              author={Saha, Sourajit and Gokhale, Tejas},
+              journal={arXiv preprint arXiv:2404.07410},
+              year={2024}
+            }
+          </pre>
+        </div> 
+        <script>
+          function cite_008_func() {
+            var moreText = document.getElementById("more_cite_008");
+            var btnText = document.getElementById("cite_008_button");
+          
+            if (moreText.style.display === "none") {
+              moreText.style.display = "inline";
+              btnText.innerHTML = "hide"; 
+            } else {
+              moreText.style.display = "none";
+              btnText.innerHTML = "cite"; 
+            }
+          }
+        </script>
     </p>
   </div>
   <hr style="border: 1px dashed blue" />
