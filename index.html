@@ -88,7 +88,7 @@
         list-style-position: inside; /* Align bullets with text */
       }
   </style>
-  <link rel="icon" href="/sourajit_pic_24_summer.jpg" type="image/x-icon">
+  <link rel="icon" href="/soura_profile_01" type="image/x-icon">
   <meta name="description" content="Homepage: Sourajit Saha">
   <meta name="author" content="Sourajit Saha">
 
@@ -148,7 +148,28 @@
       <div class="row">
         <div class="three columns">
           <!-- <a href="/"><img class="u-max-full-width" src='/profile_pic_v1.jpg'></a> -->
-          <a href="/"><img class="round-image" src='/sourajit_pic_24_summer.jpg'></a>
+          <a href="/">
+            <img id="random-image" class="round-image" src="" alt="Random Image">
+        </a>
+    
+        <!-- JavaScript to load random image -->
+        <script>
+            // Array of image paths
+            const imagePaths = [
+                '/sourajit_pic_01.jpg',
+                '/sourajit_pic_02.jpg',
+                '/sourajit_pic_03.jpg'
+            ];
+    
+            // Select a random image
+            const randomImage = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+    
+            // Set the src of the image element
+            document.getElementById('random-image').src = randomImage;
+        </script>
+
+
+          
         </div>
         <div class="nine columns main-description">
             <h1>Sourajit Saha</h1>
