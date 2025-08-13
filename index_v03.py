@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sourajit Saha | Homepage</title>
+  <meta name="description" content="Homepage: Sourajit Saha">
+  <meta name="author" content="Sourajit Saha">
+  <link rel="icon" href="/soura_profile_02.jpg" type="image/x-icon">
+
+  <!-- Fonts: elegant academic vibe -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Minimal, efficient CSS inspired by Jon Barron / AlanE / Tejas / Steve -->
+  <style>
+    :root{
+      --bg:#fffefc;--ink:#111418;--ink2:#475063;--muted:#6b7382;--link:#1a73e8;--line:#eceff3;--paper:#ffffff;--radius:14px;--shadow:0 8px 24px rgba(17,20,24,.06);--maxw:920px
+    }
+    html,body{background:var(--bg);color:var(--ink);margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:0 20px}
+    .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .header{padding:24px}
+    .grid{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
+    .avatar{width:200px;height:200px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+    h1{font-family:"Source Serif 4",Georgia,serif;font-weight:700;font-size:42px;line-height:1.1;letter-spacing:-.01em;margin:0 0 6px}
+    .lead{color:var(--ink2);margin:6px 0}
+    .kicker{color:#0b57d0;font-weight:600}
+    .icons span{margin-right:12px;font-size:18px;color:var(--ink2);cursor:pointer}
+    .icons span:hover{color:var(--link)}
+
+    /* Sticky top nav */
+    .navwrap{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:saturate(120%) blur(6px);border-bottom:1px solid var(--line)}
+    .nav{max-width:var(--maxw);margin:0 auto;padding:8px 20px;display:flex;gap:14px;justify-content:center}
+    .nav a{padding:8px 12px;border-radius:999px;color:#2d3440}
+    .nav a:hover{background:#f6f8fb;text-decoration:none}
+
+    /* Sections */
+    section.block{margin:22px 0;padding:18px 20px}
+    section.block h5{font-family:"Source Serif 4",Georgia,serif;margin:0 0 10px;font-size:24px;display:flex;gap:12px;align-items:center}
+    section.block h5:after{content:"";height:1px;background:var(--line);flex:1}
+    ul{margin:6px 0 0 18px;color:var(--ink2)}
+    li{margin:6px 0}
+    hr{border:none;border-top:1px dashed var(--line);margin:14px 0}
+
+    /* Buttons */
+    .button{display:inline-block;background:#111827;color:#fff;padding:8px 12px;border-radius:10px;border:1px solid #111827;font-weight:600;line-height:1;cursor:pointer;box-shadow:0 6px 16px rgba(17,24,39,.12)}
+    .button:hover{transform:translateY(-1px);text-decoration:none}
+
+    /* Callout */
+    .callout{background:#f7fbff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+    .callout .section-title{color:#c92a2a;font-weight:700}
+    [style*="color:blue"]{color:#0b57d0 !important}[style*="color:red"]{color:#c92a2a !important}
+
+    /* Code */
+    pre{background:#0f172a;color:#e5e7eb;border:1px solid #0b1223;border-radius:10px;padding:12px;overflow:auto;font-size:13px}
+
+    /* Mobile */
+    @media (max-width:860px){.grid{grid-template-columns:1fr}.avatar{width:160px;height:160px}}
+  </style>
+
+  <!-- External libs kept (icons/css from original site structure) -->
+  <link rel="stylesheet" href="libs/external/font-awesome-4.7.0/css/font-awesome.min.css">
+  <script src="libs/external/jquery-3.1.1.min.js"></script>
+  <script src="libs/external/skeleton_tabs/skeleton-tabs.js"></script>
+  <link rel="stylesheet" href="libs/external/skeleton/normalize.css">
+  <link rel="stylesheet" href="libs/external/skeleton/skeleton.css">
+  <link rel="stylesheet" href="libs/custom/my_css.css">
+</head>
+<body>
+  <div class="navwrap">
+    <nav class="nav">
+      <a href="/index.html#bio">Bio</a>
+      <a href="/index.html#news">News</a>
+      <a href="/index.html#publications">Publications</a>
+      <a href="/index.html#academic-service">Academic Service</a>
+      <a href="/index.html#collaborators">Collaborators</a>
+    </nav>
+  </div>
+
+  <main class="wrap">
+    <!-- Header -->
+    <header class="card header">
+      <div class="grid">
+        <a href="/"><img id="random-image" class="avatar" alt="Random Image" src=""/></a>
+        <div>
+          <h1>Sourajit Saha</h1>
+          <p class="lead"><strong>PhD Student, <a href="https://www.csee.umbc.edu/">Computer Science</a> at <a href="https://umbc.edu/">University of Maryland, Baltimore County</a></strong></p>
+          <p class="lead"><strong>Email:</strong> ssaha2@umbc.edu <strong>Location:</strong> ITE 338, UMBC, Baltimore, MD 21250</p>
+          <p class="kicker" style="color:blue";> Computer Vision | Interactive Video Retrieval | Visual Reasoning | Vision and Language</p>
+          <p class="icons">
+            <span onclick="window.open('https://scholar.google.com/citations?hl=en&user=f8wIuGcAAAAJ&view_op=list_works&sortby=pubdate')"><i class="fa fa-graduation-cap"></i></span>
+            <span onclick="window.open('https://www.linkedin.com/in/sourajitcs/')"><i class="fa fa-linkedin-square"></i></span>
+            <span onclick="window.open('https://drive.google.com/file/d/1-MChs1DdBviEYFemUq21AxmJDbdhRsC6/view?usp=sharing/')" style="font-weight:700">CV</span>
+            <span onclick="window.open('https://github.com/sourajitcs')"><i class="fa fa-github"></i></span>
+            <span onclick="window.open('https://twitter.com/sourajitCS')"><i class="fa fa-twitter"></i></span>
+          </p>
+        </div>
+      </div>
+      <script>
+        const imagePaths=['/soura_profile_01.jpg','/soura_profile_02.jpg','/soura_profile_03.jpg'];
+        document.getElementById('random-image').src=imagePaths[Math.floor(Math.random()*imagePaths.length)];
+      </script>
+    </header>
+
+    <!-- Callout -->
+    <section class="callout card block">
+      <p class="section-title" style="color:red";>Looking for Research Internship (Winter 2025-2026, Summer 2026)</p>
+      <p>
+        &diams; <span style="color:blue;">Interactive Video Retrieval, Search, and Understanding:</span> Advancing interactive video retrieval via VLMs, scene-graph reasoning, VQA-based finetuning, and dialogue-driven systems for improved semantic understanding. <br>
+        &diams; <span style="color:blue;">Visual Reasoning:</span> Investigating spatial reasoning, counterfactual visual inference, and editing techniques to enhance model interpretability, adaptability, and causal understanding. <br>
+        &diams; <span style="color:blue;">Reliable Vision Systems:</span> Evaluating vision models by detecting hallucinations and measuring generative quality in T2I and T2V outputs for fidelity and alignment.
+      </p>
+    </section>
+
+    <!-- Bio -->
+    <section class="card block" id="bio">
+      <h5>Bio</h5>
+      <p>
+        <span>
+          I am a Computer Science PhD student, working under the guidance of 
+          <a href="https://www.csee.umbc.edu/tejas-gokhale/">Tejas Gokhale</a> 
+          in the <a href="https://www.tejasgokhale.com/">UMBC Cognitive Vision Group</a> 
+          at University of Maryland, Baltimore County (UMBC). 
+          I work on interactive video retrieval/search, visual reasoning, and improving/assessing reliability for vision systems.  
+          My research in interactive video retrieval and search spans four key areas:
+          <ol>
+            <li><strong>Enhancing few-shot and zero-shot video search and retrieval</strong> by leveraging the rapid progress in Vision-Language Models (VLMs).</li>
+            <li><strong>Developing Scene Graph-based Chain-of-Thought reasoning frameworks</strong> to enable structured and interpretable understanding, retrieval, and search across complex video content.</li>
+            <li><strong>Investigating Video Question Answering (VQA) systems</strong> as auxiliary tasks for finetuning, with a focus on how the completeness of visual information affects downstream video understanding.</li>
+            <li><strong>Designing dialogue-driven interactive retrieval systems</strong>, where natural conversations guide iterative video exploration and search, improving user engagement and retrieval effectiveness.</li>
+          </ol>
+          <button class="button" onclick="bio_more_func()" id="bio_more_button">Read more . .</button>
+        </span>
+      </p>
+      <div id="bio_more" style="display:none;">
+        <p>
+          <span>
+            I also focus on visual reasoning, with particular emphasis on:
+            <ol>
+              <li><strong>Understanding spatial relationships and transformations</strong> between objects, supporting more grounded and context-aware visual inference.</li>
+              <li><strong>Studying counterfactual visual reasoning</strong>, where hypothetical alterations to visual scenes help probe causality and explainability in model behavior.</li>
+              <li><strong>Exploring techniques for image and model editing</strong>, enabling controlled modifications and interpretability of vision systems through learned or rule-based interventions.</li>
+            </ol>
+            To ensure reliability in modern vision models, I pursue robust evaluation and mitigation strategies, including:
+            <ol>
+              <li><strong>Detecting and quantifying hallucinations in Vision-Language Models</strong>, identifying where and how models generate unsupported or fabricated content.</li>
+              <li><strong>Assessing the quality of generative models</strong>, with a particular focus on text-to-image (T2I) and text-to-video (T2V) outputs, measuring both fidelity and alignment to prompts.</li>
+            </ol>
+            Prior to joining UMBC, I was a Research Assistant at Center for Cognitive Skill Enhancement (CCSE) at Independent University Bangladesh (IUB). 
+            I have received a Masters of Science in Computer Science from UMBC in 2023 and a Bachelor of Science in Computer Science from BRAC University in 2017. 
+            In my free time I love composing EDMs, cooking and driving. If not computer science, I would have pursued stand up comedy! 
+          </span>
+        </p>
+      </div> 
+      <script>
+        function bio_more_func(){var m=document.getElementById('bio_more');var b=document.getElementById('bio_more_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='See less . .';}else{m.style.display='none';b.innerHTML='Read more . .';}}
+      </script>
+    </section>
+
+    <!-- News -->
+    <section class="card block" id="news">
+      <h5>News</h5>
+      <ul>
+        <li><b>Jul 2025:</b> Serving in program committee for AAAI 2026</li>
+        <li><b>Jul 2025:</b> Recieved Lambda Research Grant Award at CVPR 2025</li>
+        <li><b>Mar 2025:</b> Reviewing manuscripts for ICCV 2025 (Track: Vision, language, and reasoning)</li>
+        <li style="color:red";><b>Jan 2025:</b> One paper accepted for Oral at <a href="https://wacv2025.thecvf.com/">WACV 2025</a> </li>
+        <li style="color:red";><b>Dec 2024:</b> Received <a href="https://gsa.umbc.edu/grants-program/">UMBC GSA</a> Travel Grant</li>
+        <li style="color:red";><b>Oct 2024:</b> One paper accepted at <a href="https://wacv2025.thecvf.com/">WACV 2025</a> in Tucson, Arizona <a href="https://arxiv.org/pdf/2404.07410">(Preprint)</a></li>
+        <li><b>Mar 2024:</b> Got accepted into <a href="https://hltcoe.jhu.edu/research/scale/scale-2024/">SCALE 2024</a> at JHU to work on event-based visual content retrieval on summer'24</li>
+        <li><b>Feb 2024:</b> Guest lecture on CMSC 491/691: Computer Vision at UMBC</li>
+        <li><b>Feb 2024:</b> Reviewing manuscripts for IJCAI 2024, ACM Transactions on Computing for Healthcare</li>
+        <li><b>Nov 2023:</b> Guest lecture on CMSC 678: (Graduate) Machine Learning at UMBC</li>
+        <li><b>Oct 2023:</b> Reviewing manuscripts for AAAI 2024 (student abstract)</li>
+        <li><b>Sep 2023:</b> Joined Cognitive Vision Group at UMBC, lead by <a href="https://www.tejasgokhale.com/"> Tejas Gokhale</a></li>
+        <li><b>Aug 2023:</b> One paper accepted at ICCV 2023 in OODCV, Paris, France</li>
+      </ul>
+      <button class="button" onclick="more_news_toggle()" id="more_news_button">Read more</button> Click to see older news
+      <script>
+        function more_news_toggle(){var m=document.getElementById('more_news');var b=document.getElementById('more_news_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='See less';}else{m.style.display='none';b.innerHTML='Read more';}}
+      </script>
+    </section>
+    <div id="more_news" style="display:none;" class="card block">
+      <ul>
+        <li><b>May 2023:</b> I got my Masters in Computer Science at UMBC in Spring 2023</li>
+        <li><b>Oct 2022:</b> One paper accepted at <a href="https://proceedings.aaai.org/storage/aaai-production-files-processed/a26b86e8-d66a-473e-a0a4-c252386b3825.out.pdf"> AAAI 2023</a> in Washington D.C</li>
+        <li><b>Mar 2022:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448"> IEEE ACCESS</a></li>
+        <li><b>Oct 2021:</b> One paper accepted at <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/PC12033/PC1203302/Pairwise-meta-learning-pipeline--classifying-COVID-19-abnormalities-on/10.1117/12.2613235.short?SSO=1"> SPIE Medical Imaging Conference 2022</a> in San Diego</li>
+        <li><b>Summer 2021:</b> I was a Machine Learning intern at VIPAR Lab (Vision Image Processing Algorithms Research Lab), UMBC</li>
+        <li><b>Jan 2021:</b> I joined UMBC for grad school</li>
+        <li><b>Sep 2020:</b> One book chapter published in <a href="https://link.springer.com/chapter/10.1007/978-981-15-6759-9_2"> Part of the Advances in Intelligent Systems and Computing book series</a>, Springer</li>
+        <li><b>Dec 2019:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/abstract/document/8999264"> ICMLA 2019</a> in Florida</li>
+        <li><b>Feb 2019:</b> One paper accepted at <a href="https://ieeexplore.ieee.org/abstract/document/8631925"> ICCIT 2018</a> in Dhaka</li>
+        <li><b>Dec 2018:</b> One paper accepted at <a href="https://www.sciencedirect.com/science/article/pii/S1877050918308858"> ELSEVIER - Procedia Computer Science</a></li>
+        <li><b>Jul 2018:</b> I joined IUB as a Research Assistant.</li>
+      </ul>
+    </div>
+
+    <!-- Publications -->
+    <section class="card block" id="publications">
+      <h5>Publications</h5>
+      <p>Most recent publications on <a href="https://scholar.google.com/citations?hl=en&user=f8wIuGcAAAAJ&view_op=list_works&sortby=pubdate">Google Scholar</a>.</p>
+
+      <div class="paper">
+        <p class="title">Improving Shift Invariance in Convolutional Neural Networks with Translation Invariant Polyphase Sampling. Sourajit Saha, Tejas Gokhale</p>
+        <p> 
+          <i><a href="https://wacv2025.thecvf.com/">WACV 2025</a>, <a href="https://www.ood-cv.org/2023/index.html">ICCV 2023 (OODCV workshop)</a></i>
+          <a class="button" href="https://openaccess.thecvf.com/content/WACV2025/html/Saha_Improving_Shift_Invariance_in_Convolutional_Neural_Networks_with_Translation_Invariant_WACV_2025_paper.html" target="_blank">paper</a>
+          <a class="button" href="https://video.computer.org/WACV-Posters25/3XebahK4ZaQZgXi97EyBho-wacv25-2243.mp4" target="_blank">video</a>
+          <a class="button" href="https://ieeecs-media.computer.org/media/conferences/wacv/2025/posters/Improving%20Shift%20Invariance%20in%20Convolutional%20Neural%20Networks%20with%20Translation%20Invariant%20Polyphase%20Sam.pdf" target="_blank">poster</a>
+          <a class="button" href="https://github.com/sourajitcs/tips/" target="_blank">code</a>
+          <button class="button" onclick="cite_008_func()" id="cite_008_button">cite</button>
+          <div id="more_cite_008" style="display:none;">
+            <pre>
+@InProceedings{Saha_2025_WACV,
+    author    = {Saha, Sourajit and Gokhale, Tejas},
+    title     = {Improving Shift Invariance in Convolutional Neural Networks with Translation Invariant Polyphase Sampling},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {620-629}
+}
+            </pre>
+          </div> 
+          <script>
+            function cite_008_func(){var m=document.getElementById('more_cite_008');var b=document.getElementById('cite_008_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='hide';}else{m.style.display='none';b.innerHTML='cite';}}
+          </script>
+        </p>
+      </div>
+      <hr />
+
+      <div class="paper">
+        <p class="title">RFC-Net: Learning High Resolution Global Features for Medical Image Segmentation on a Computational Budget (Student Abstract). Sourajit Saha, Shaswati Saha, Md Osman Gani, Tim Oates, David Chapman</p>
+        <p>
+          <i>AAAI 2023</i>
+          <a class="button" href="https://ojs.aaai.org/index.php/AAAI/article/view/27017" target="_blank">paper</a>
+          <a class="button" href="https://github.com/sourajitcs/RFC-NetAAAI23" target="_blank">code</a>
+          <button class="button" onclick="cite_007_func()" id="cite_007_button">cite</button>
+          <div id="more_cite_007" style="display:none;">
+            <pre>
+@inproceedings{saha2023rfc,
+    title={RFC-net: learning high resolution global features for medical image segmentation on a computational budget (student abstract)},
+    author={Saha, Sourajit and Saha, Shaswati and Gani, Md Osman and Oates, Tim and Chapman, David},
+    booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+    volume={37},
+    number={13},
+    pages={16314--16315},
+    year={2023}
+}
+            </pre>
+          </div> 
+          <script>
+            function cite_007_func(){var m=document.getElementById('more_cite_007');var b=document.getElementById('cite_007_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='hide';}else{m.style.display='none';b.innerHTML='cite';}}
+          </script>
+        </p>
+      </div>
+      <hr />
+
+      <div class="paper">
+        <p class="title">Mitigating Domain Shift in AI-Based TB Screening With Unsupervised Domain Adaptation. Nishanjan Ravin, Sourajit Saha, Alan Schweitzer, Ameena Elahi, Farouk Dako, Daniel Mollura, David Chapman</p>
+        <p>
+          <i>IEEE Access</i>
+          <a class="button" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9759448" target="_blank">paper</a>
+          <a class="button" href="https://github.com/sourajitcs/DIFL" target="_blank">code</a>
+          <button class="button" onclick="cite_006_func()" id="cite_006_button">cite</button>
+          <div id="more_cite_006" style="display:none;">
+            <pre>
+@article{ravin2022mitigating,
+    title={Mitigating domain shift in AI-based TB screening with unsupervised domain adaptation},
+    author={Ravin, Nishanjan and Saha, Sourajit and Schweitzer, Alan and Elahi, Ameena and Dako, Farouk and Mollura, Daniel and Chapman, David},
+    journal={IEEE Access},
+    volume={10},
+    pages={45997--46013},
+    year={2022},
+    publisher={IEEE}
+}
+            </pre>
+          </div> 
+          <script>
+            function cite_006_func(){var m=document.getElementById('more_cite_006');var b=document.getElementById('cite_006_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='hide';}else{m.style.display='none';b.innerHTML='cite';}}
+          </script>
+        </p>
+      </div>
+      <hr />
+
+      <div class="paper">
+        <p class="title">Pairwise Meta Learning Pipeline: Classifying COVID-19 abnormalities on chest radio-graphs. Sourajit Saha, Yaacov Yesha, Yelena Yesha, Aryya Gangopadhyay, David Chapman, Michael Morris, Babak Saboury, Phuong Nguyen</p>
+        <p>
+          <i>SPIE Medical Imaging Conference 2022</i>
+          <a class="button" href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/PC12033/PC1203302/Pairwise-meta-learning-pipeline--classifying-COVID-19-abnormalities-on/10.1117/12.2613235.short?SSO=1" target="_blank">Paper</a>
+          <button class="button" onclick="cite_005_func()" id="cite_005_button">cite</button>
+          <div id="more_cite_005" style="display:none;">
+            <pre>
+@article{saha2022pairwise,
+    title={Pairwise meta learning pipeline: classifying COVID-19 abnormalities on chest radio-graphs},
+    author={Saha, Sourajit and Yesha, Yaacov},
+    journal={SPIE Medical Imaging 2022: Computer-Aided Diagnosis; PC1203302 (2022) Proceedings Volume PC12033, Medical Imaging 2022: Computer-Aided Diagnosis; PC1203302 (2022)},
+    year={2022}
+}
+            </pre>
+          </div> 
+          <script>
+            function cite_005_func(){var m=document.getElementById('more_cite_005');var b=document.getElementById('cite_005_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='hide';}else{m.style.display='none';b.innerHTML='cite';}}
+          </script>
+        </p>
+      </div>
+      <hr />
+
+      <div class="paper">
+        <p class="title">A comprehensive set of novel residual blocks for deep learning architectures for diagnosis of retinal diseases from optical coherence tomography images. Sharif Amit Kamran, Sourajit Saha, Ali Shihab Sabbir, Alireza Tavakkoli</p>
+        <p>
+          <i>Springer Book Series, 2020</i>
+          <a class="button" href="https://link.springer.com/chapter/10.1007/978-981-15-6759-9_2" target="_blank">paper</a>
+          <a class="button" href="https://github.com/SharifAmit/OpticNet-71" target="_blank">code</a>
+          <button class="button" onclick="cite_004_func()" id="cite_004_button">cite</button>
+          <div id="more_cite_004" style="display:none;">
+            <pre>
+@article{kamran2021comprehensive,
+    title={A comprehensive set of novel residual blocks for deep learning architectures for diagnosis of retinal diseases from optical coherence tomography images},
+    author={Kamran, Sharif Amit and Saha, Sourajit and Sabbir, Ali Shihab and Tavakkoli, Alireza},
+    journal={Deep Learning Applications, Volume 2},
+    pages={25--48},
+    year={2021},
+    publisher={Springer}
+}
+            </pre>
+          </div> 
+          <script>
+            function cite_004_func(){var m=document.getElementById('more_cite_004');var b=document.getElementById('cite_004_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='hide';}else{m.style.display='none';b.innerHTML='cite';}}
+          </script>
+        </p>
+      </div>
+      <hr />
+
+      <div class="paper">
+        <p class="title">Optic-Net: A Novel Convolutional Neural Network for Diagnosis of Retinal Diseases from Optical Tomography Images. Sharif Amit Kamran, Sourajit Saha, Ali Shihab Sabbir, Alireza Tavakkoli</p>
+        <p>
+          <i>ICMLA 2019</i>
+          <a class="button" href="https://ieeexplore.ieee.org/abstract/document/8999264" target="_blank">paper</a>
+          <a class="button" href="https://github.com/SharifAmit/OpticNet-71" target="_blank">code</a>
+          <button class="button" onclick="cite_003_func()" id="cite_003_button">cite</button>
+          <div id="more_cite_003" style="display:none;">
+            <pre>
+@inproceedings{kamran2019optic,
+    title={Optic-net: A novel convolutional neural network for diagnosis of retinal diseases from optical tomography images},
+    author={Kamran, Sharif Amit and Saha, Sourajit and Sabbir, Ali Shihab and Tavakkoli, Alireza},
+    booktitle={2019 18th IEEE International Conference On Machine Learning And Applications (ICMLA)},
+    pages={964--971},
+    year={2019},
+    organization={IEEE}
+}
+            </pre>
+          </div> 
+          <script>
+            function cite_003_func(){var m=document.getElementById('more_cite_003');var b=document.getElementById('cite_003_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='hide';}else{m.style.display='none';b.innerHTML='cite';}}
+          </script>
+        </p>
+      </div>
+    </section>
+
+    <!-- Academic Service -->
+    <section class="card block" id="academic-service">
+      <h5>Academic Service</h5>
+      <ul>
+        <p><b>Program Committee / Reviewer</b></p>
+        <li>Conferences: 
+          AAAI 2026, ICCV 2025, AAAI 2024 (student abstract), IJCAI 2024
+        </li>
+        <li>Journals: 
+          <a href="https://www.cambridge.org/core/journals/apsipa-transactions-on-signal-and-information-processing">APSIPA Transactions on Signal and Information Processing (Cambridge University Press)</a>, 
+          <a href="https://dl.acm.org/journal/health">ACM Transactions on Computing for Healthcare</a>
+          <a href="https://www.sciencedirect.com/journal/computers-and-electronics-in-agriculture">Computers and Electronics in Agriculture</a>
+        </li>
+      </ul>
+      <ul>
+        <p><b>Membership</b></p>
+        <li>CVF, AAAI, ACL</li>
+      </ul>
+      <ul>
+        <p><b>Teaching</b></p>
+        <li>UMBC (TA): <a href="https://courses.cs.umbc.edu/graduate/678/fall24/">CMSC 678: Machine Learning </a> <b>Fall 2024</b></li>
+        <li>UMBC (TA): <a href="https://redirect.cs.umbc.edu/courses/graduate/691cv/">CMSC 691: Computer Vision </a> <b>Spring 2024</b></li>
+        <li>UMBC (TA): <a href="https://manasgaur.github.io/CMSC678_F23/">CMSC 678: Machine Learning </a> <b>Fall 2023</b></li>
+        <li>UMBC (TA): <a href="https://redirect.cs.umbc.edu/courses/undergraduate/471/spring23/02/">CMSC 471: Introduction to Artificial Intelligence </a> <b>Spring 2023</b></li>
+        <li>UMBC (TA): <a href="https://www.csee.umbc.edu/people/faculty/ivan-sekyonda/">CMSC 313: Assembly Language and Computer Organization </a> <b>Fall 2021</b></li>
+        <li>UMBC (TA): <a href="https://www.csee.umbc.edu/people/lecturers/mohammad-khash-donyaee/">CMSC 341: Data Structures </a> <b>Spring 2021</b></li>
+      </ul>
+    </section>
+
+    <!-- Collaborators -->
+    <section class="card block" id="collaborators">
+      <h5>Collaborators</h5>
+      <ul>
+        <p><b>Current Collaborators</b></p>
+        <li><a href="https://www.tejasgokhale.com/">Tejas Gokhale</a></li>
+        <li><a href="https://agneetchatterjee.com/">Agneet Chatterjee</a></li>
+        <li><a href="https://manasgaur.github.io/">Manas Gaur</a></li>
+        <li><a href="https://scholar.google.com/citations?hl=en&user=_pTdzsAAAAAJ&view_op=list_works&sortby=pubdate">Shaswati Saha</a></li>
+      </ul>
+      <ul>
+        <p><b>Previous Collaborators</b></p>
+        <li><a href="https://www.csee.umbc.edu/people/faculty/tim-oates/">Tim Oates</a></li>
+        <li><a href="https://people.miami.edu/profile/464cd6edc2709ca9e89de1dc3f756e4c">David Chapman</a></li>
+        <li><a href="https://www.sharifamit.com/">Sharif Amit Kamran</a></li>
+        <li><a href="http://www.cse.iub.edu.bd/faculties/13">Ali Shihab Sabbir</a></li>
+      </ul>
+    </section>
+
+    <!-- Acknowledgement -->
+    <section class="card block" id="ack">
+      <h5>Acknowledgement</h5>
+      <p>
+        Website theme inspirations: <a href="https://ani0075saha.github.io/">Aniruddha Saha</a>, <a href="https://github.com/msaveski/www_personal">Martin Saveski</a>, <a href="https://aditi741997.github.io/">Aditi Partap</a>.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <section class="block" style="padding:0 2px;border:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px">
+        <div>Sourajit Saha</div>
+        <div style="text-align:center">Last updated 08/12/2025</div>
+        <div style="text-align:right" class="icons">
+          <span onclick="window.open('https://github.com/sourajitcs')"><i class="fa fa-github"></i></span>
+          <span onclick="window.open('https://www.linkedin.com/in/sourajitcs/')"><i class="fa fa-linkedin-square"></i></span>
+          <span onclick="window.open('https://twitter.com/sourajitCS')"><i class="fa fa-twitter"></i></span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
