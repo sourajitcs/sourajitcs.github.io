@@ -84,41 +84,29 @@
   <main class="wrap">
     <!-- Header -->
     <header class="card header">
-     <div class="profile-container">
-      <a href="/">
-        <img id="random-image" class="avatar" alt="Random Image" src=""/>
-      </a>
-      <div class="profile-text">
-        <h1>Sourajit Saha</h1>
-        <p class="lead">
-          <strong>PhD Student, <a href="https://www.csee.umbc.edu/">Computer Science</a> at 
-          <a href="https://umbc.edu/">University of Maryland, Baltimore County</a></strong>
-        </p>
-        <p class="lead">
-          <strong>Email:</strong> ssaha2@umbc.edu <strong>Location:</strong> ITE 338, UMBC, Baltimore, MD 21250
-        </p>
-        <p class="kicker">
-          Interactive Visual Search | Multimodal Retrieval | Multimodal Reasoning
-          Video Understanding | Computer Vision | Vision and Language
-        </p>
-        <p class="icons">
-          <span onclick="window.open('https://scholar.google.com/citations?hl=en&user=f8wIuGcAAAAJ&view_op=list_works&sortby=pubdate')"><i class="fa fa-graduation-cap"></i></span>
-          <span onclick="window.open('https://www.linkedin.com/in/sourajitcs/')"><i class="fa fa-linkedin-square"></i></span>
-          <span onclick="window.open('https://drive.google.com/file/d/1-MChs1DdBviEYFemUq21AxmJDbdhRsC6/view?usp=sharing/')" style="font-weight:700">CV</span>
-          <span onclick="window.open('https://github.com/sourajitcs')"><i class="fa fa-github"></i></span>
-          <span onclick="window.open('https://twitter.com/sourajitCS')"><i class="fa fa-twitter"></i></span>
-        </p>
+     <div class="grid">
+        <a href="/"><img id="random-image" class="avatar" alt="Random Image" src=""/></a>
+        <div>
+          <h1>Sourajit Saha</h1>
+          <p class="lead"><strong>PhD Student, <a href="https://www.csee.umbc.edu/">Computer Science</a> at <a href="https://umbc.edu/">University of Maryland, Baltimore County</a></strong></p>
+          <p class="lead"><strong>Email:</strong> ssaha2@umbc.edu <strong>Location:</strong> ITE 338, UMBC, Baltimore, MD 21250</p>
+          <p class="kicker" style="color:blue";> 
+            Interactive Visual Search | Multimodal Retrieval | Multimodal Reasoning
+            Video Understanding | Computer Vision | Vision and Language
+          </p>
+          <p class="icons">
+            <span onclick="window.open('https://scholar.google.com/citations?hl=en&user=f8wIuGcAAAAJ&view_op=list_works&sortby=pubdate')"><i class="fa fa-graduation-cap"></i></span>
+            <span onclick="window.open('https://www.linkedin.com/in/sourajitcs/')"><i class="fa fa-linkedin-square"></i></span>
+            <span onclick="window.open('https://drive.google.com/file/d/1-MChs1DdBviEYFemUq21AxmJDbdhRsC6/view?usp=sharing/')" style="font-weight:700">CV</span>
+            <span onclick="window.open('https://github.com/sourajitcs')"><i class="fa fa-github"></i></span>
+            <span onclick="window.open('https://twitter.com/sourajitCS')"><i class="fa fa-twitter"></i></span>
+          </p>
+        </div>
       </div>
-    </div>
-    
-    <script>
-      const imagePaths = ['/soura_profile_01.jpg','/soura_profile_02.jpg','/soura_profile_03.jpg'];
-      const img = document.getElementById('random-image');
-      img.src = imagePaths[Math.floor(Math.random()*imagePaths.length)];
-      img.onload = function() {
-        document.querySelector('.profile-text').style.maxHeight = img.clientHeight + 'px';
-      };
-    </script>
+      <script>
+        const imagePaths=['/soura_profile_01.jpg','/soura_profile_02.jpg','/soura_profile_03.jpg'];
+        document.getElementById('random-image').src=imagePaths[Math.floor(Math.random()*imagePaths.length)];
+      </script>
 
     </header>
 
