@@ -1,13 +1,171 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MULTI-SCORE</title>
-  <link rel="stylesheet" href="./style.css">
+  <style>
+    :root {
+      --bg: #efefef;
+      --text: #1f2a44;
+      --blue: #2f63ff;
+      --navy: #1f2a44;
+      --badge-bg: #ffd873;
+      --badge-border: #f0a500;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 20px 60px;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: clamp(2.2rem, 4.5vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 0 0 26px;
+      color: var(--text);
+    }
+
+    .authors {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .authors .name {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .affiliations {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 14px;
+      background: var(--badge-bg);
+      border: 2px solid var(--badge-border);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #a64b00;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .badge .venue {
+      color: #1d4ed8;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--navy);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.35rem;
+      padding: 14px 26px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+    }
+
+    .footer-note {
+      font-size: 1.2rem;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .btn {
+        font-size: 1.1rem;
+        padding: 12px 20px;
+      }
+
+      .badge {
+        font-size: 1.05rem;
+      }
+
+      .authors,
+      .affiliations,
+      .footer-note {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>MULTI-SCORE</h1>
-  <p>Fine-tuning-free multimodal retrieval with PyramidRank and multimodal re-ranking.</p>
+  <main class="page">
+    <section class="hero">
+      <h1 class="title">
+        Zero-Shot Multimodal Retrieval with Multi-Scale Contextual Representations
+      </h1>
+
+      <div class="authors">
+        <a class="name" href="#">Sourajit Saha</a><sup>1</sup>,
+        <a class="name" href="#">Tejas Gokhale</a><sup>1</sup>
+      </div>
+
+      <div class="affiliations">
+        <sup>1</sup>University of Maryland, Baltimore County
+        &nbsp;&nbsp;
+        <sup>2</sup>Affiliation Name
+      </div>
+
+      <div class="badge">🔥 Accepted at <span class="venue">ACL 2026 (Main + Oral)</span> 🔥</div>
+
+      <div class="buttons">
+        <a class="btn" href="./">📄 Paper</a>
+        <a class="btn" href="./">💻 Code</a>
+        <a class="btn" href="./">📚 arXiv</a>
+      </div>
+
+      <div class="footer-note">
+        Project page under construction: check back soon!
+      </div>
+    </section>
+  </main>
 </body>
 </html>
