@@ -67,6 +67,14 @@
     .chip{background:#f0f6ff;border:1px solid #d7e6ff;color:#0b57d0;border-radius:999px;padding:5px 12px;font-weight:600;font-size:13px}
     .chip a{color:inherit}
 
+    /* News: fixed-height scrollable window */
+    .newsbox{max-height:420px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:#fcfdff;padding:4px 14px 10px}
+    .newsbox::-webkit-scrollbar{width:8px}
+    .newsbox::-webkit-scrollbar-track{background:transparent}
+    .newsbox::-webkit-scrollbar-thumb{background:#d7e0ec;border-radius:8px}
+    .newsbox::-webkit-scrollbar-thumb:hover{background:#b9c6d8}
+    .newshint{color:var(--muted);font-size:13px;font-weight:400;white-space:nowrap}
+
     /* Experience entries */
     .xp{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:10px 0;border-bottom:1px dashed var(--line)}
     .xp:last-of-type{border-bottom:none}
@@ -286,7 +294,8 @@
     
     <!-- News -->
     <section class="card block" id="news">
-      <h5>News</h5>
+      <h5>News <span class="newshint">scroll for older news &darr;</span></h5>
+      <div class="newsbox">
       <ul>
         <li style="color:red;"><b>Jul 2026:</b> Received the <a href="https://2026.aclweb.org/program/outstanding_reviewers/">Great Reviewer Award (top 1.4%) at ACL 2026</a></li>
         <li><b>Jul 2026:</b> Presented <a href="https://sourajitcs.github.io/multiscore/">MULTI-SCORE</a> at the ACL 2026 <a href="https://drive.google.com/file/d/1QiJFOmMjvDgsDo3i1XzlQnImxe3RU_Cy/view">Oral Session: Information Extraction and Retrieval</a>, and gave an invited talk at the <a href="https://nlp.jhu.edu/magmar/">MAGMaR 2026 workshop</a>, San Diego</li>
@@ -318,14 +327,6 @@
         <li><b>Dec 2024:</b> Received <a href="https://gsa.umbc.edu/grants-program/">UMBC GSA</a> Professional Development Grant, 2025</li>
         <li><b>Oct 2024:</b> One paper accepted at <a href="https://wacv2025.thecvf.com/">WACV 2025</a> in Tucson, Arizona <a href="https://arxiv.org/pdf/2404.07410">(Preprint)</a></li>
         <li style="color:red";><b>Mar 2024:</b> Got accepted into <a href="https://hltcoe.jhu.edu/research/scale/scale-2024/">SCALE 2024</a> at JHU to work on event-based visual content retrieval on summer'24</li>
-      </ul>
-      <button class="button" onclick="more_news_toggle()" id="more_news_button">Read more</button> Click to see older news
-      <script>
-        function more_news_toggle(){var m=document.getElementById('more_news');var b=document.getElementById('more_news_button');if(m.style.display==='none'){m.style.display='inline';b.innerHTML='See less';}else{m.style.display='none';b.innerHTML='Read more';}}
-      </script>
-    </section>
-    <div id="more_news" style="display:none;" class="card block">
-      <ul>
         <li><b>Feb 2024:</b> Guest lecture on CMSC 691: Computer Vision at UMBC</li>
         <li><b>Feb 2024:</b> Serving as Program Committee for IJCAI 2024, ACM Transactions on Computing for Healthcare</li>
         <li><b>Nov 2023:</b> Guest lecture on CMSC 678: (Graduate) Machine Learning at UMBC</li>
@@ -344,7 +345,8 @@
         <li><b>Dec 2018:</b> One paper accepted at <a href="https://www.sciencedirect.com/science/article/pii/S1877050918308858"> ELSEVIER - Procedia Computer Science</a></li>
         <li><b>Jul 2018:</b> I joined IUB as a Research Assistant.</li>
       </ul>
-    </div>
+      </div>
+    </section>
 
     <!-- Publications -->
     <section class="card block" id="publications">
