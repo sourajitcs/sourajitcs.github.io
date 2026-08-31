@@ -62,7 +62,7 @@ body{
   font-family:var(--serif); font-size:17px; line-height:1.62;
   -webkit-font-smoothing:antialiased;
 }
-img{max-width:100%; display:block}
+img{max-width:100%; height:auto; display:block}
 a{color:var(--blue-deep); text-underline-offset:3px; text-decoration-thickness:1px}
 a:hover{color:var(--blue)}
 :focus-visible{outline:2.5px solid var(--blue); outline-offset:3px; border-radius:2px}
@@ -220,9 +220,12 @@ section{padding:clamp(56px,7vw,96px) 0}
 .contrib li strong{font-family:var(--sans); font-weight:700; letter-spacing:-.01em}
 
 figure{margin:0}
-.fig{background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:14px}
-.fig img{cursor:zoom-in; border-radius:2px}
-.fig figcaption{font-size:14.5px; line-height:1.5; color:var(--slate); margin-top:12px; padding-top:11px; border-top:1px solid var(--rule-soft); max-width:88ch}
+.fig{background:var(--card); border:1px solid var(--rule); border-radius:5px; overflow:hidden}
+.fig .frame{
+  background:#000; padding:14px; display:flex; align-items:center; justify-content:center;
+}
+.fig .frame img{max-width:100%; width:auto; height:auto; object-fit:contain; cursor:zoom-in}
+.fig figcaption{font-size:14.5px; line-height:1.5; color:var(--slate); margin:0; padding:14px 16px 16px; max-width:88ch}
 .fig figcaption b{font-family:var(--sans); font-weight:700; color:var(--ink)}
 
 /* ============================ method tabs ============================ */
@@ -239,6 +242,8 @@ figure{margin:0}
 .tab .n{font-family:var(--mono); font-size:11.5px; color:var(--l4); margin-right:7px}
 .panel[hidden]{display:none}
 .stage{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.06fr); gap:clamp(24px,3.4vw,46px); align-items:start}
+.stage.stack{grid-template-columns:1fr; gap:26px}
+.stage.stack .prose{max-width:74ch}
 @media(max-width:900px){ .stage{grid-template-columns:1fr} }
 .stage h3{font-size:1.32rem; margin-bottom:12px; letter-spacing:-.022em}
 .stage p{font-size:16px; margin:0 0 15px}
@@ -253,6 +258,11 @@ figure{margin:0}
 .eq b{color:var(--blue-deep); font-weight:500}
 .keyval{list-style:none; margin:16px 0 0; padding:0; font-family:var(--sans); font-size:14px}
 .keyval li{display:flex; gap:12px; padding:7px 0; border-top:1px solid var(--rule-soft)}
+.stack .keyval{display:grid; grid-template-columns:repeat(3,1fr); gap:0 30px; margin-top:20px}
+.stack .keyval li{display:block; padding:9px 0 11px; border-top:1px solid var(--rule-soft)}
+.stack .keyval span{display:block}
+.stack .keyval span:first-child{min-width:0; margin-bottom:2px}
+@media(max-width:760px){ .stack .keyval{grid-template-columns:1fr; gap:0} }
 .keyval span:first-child{color:var(--mute); min-width:132px}
 .keyval span:last-child{color:var(--ink); font-weight:500}
 
@@ -297,10 +307,15 @@ td.zsbest{color:var(--blue-deep); font-weight:700}
 
 /* ============================ carousel ============================ */
 .car{background:var(--card); border:1px solid var(--rule); border-radius:5px; overflow:hidden}
-.car-stage{position:relative; padding:22px 22px 6px; min-height:220px}
+.car-stage{
+  position:relative; background:#000; padding:16px;
+  display:flex; align-items:center; justify-content:center;
+  height:clamp(300px,52vh,560px);
+}
+.car-slide{display:flex; width:100%; height:100%; align-items:center; justify-content:center}
 .car-slide[hidden]{display:none}
-.car-slide img{margin:0 auto; max-height:min(56vh,520px); width:auto; cursor:zoom-in}
-.car-cap{padding:16px 22px 18px; border-top:1px solid var(--rule-soft); display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:end}
+.car-slide img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; cursor:zoom-in}
+.car-cap{padding:0 22px 20px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:end}
 .car-cap h4{font-family:var(--sans); font-size:15.5px; font-weight:700; margin:0 0 5px; letter-spacing:-.015em}
 .car-cap p{margin:0; font-size:14.5px; line-height:1.5; color:var(--slate); max-width:76ch}
 .car-nav{display:flex; align-items:center; gap:8px}
@@ -311,7 +326,7 @@ td.zsbest{color:var(--blue-deep); font-weight:700}
 }
 .car-nav button:hover{background:var(--ink); border-color:var(--ink); color:#fff}
 .car-count{font-family:var(--mono); font-size:12.5px; color:var(--mute); min-width:44px; text-align:center}
-.dots{display:flex; gap:5px; padding:0 22px 18px}
+.dots{display:flex; gap:5px; padding:15px 22px 17px}
 .dots button{
   flex:1; height:3px; border:0; padding:0; background:var(--rule); cursor:pointer; border-radius:2px;
   transition:background .2s ease;
@@ -342,7 +357,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
 /* ============================ lightbox ============================ */
 .lb{position:fixed; inset:0; z-index:200; background:rgba(10,15,26,.94); display:none; padding:4vh 4vw; cursor:zoom-out}
 .lb[open]{display:flex; align-items:center; justify-content:center}
-.lb img{max-width:100%; max-height:92vh; width:auto; border-radius:3px; background:#fff}
+.lb img{max-width:100%; max-height:92vh; width:auto; height:auto; object-fit:contain; border-radius:3px; background:#000; padding:10px}
 .lb-close{position:absolute; top:14px; right:18px; background:none; border:0; color:#9BA8C4; font-family:var(--sans); font-size:14px; cursor:pointer}
 .lb-close:hover{color:#fff}
 
@@ -480,7 +495,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
     </div>
 
     <figure class="fig" style="margin-top:38px">
-      <img src="static/images/teaser_final_v3.jpg" alt="Overview of MULTI-SCORE: a multimodal query is matched against a large database, with examples of text to video, text to audio and image plus text to image retrieval, and a radar chart comparing MULTI-SCORE to prior zero-shot and supervised methods across 12 tasks." width="2400" height="753" loading="eager">
+      <div class="frame"><img src="static/images/teaser_final_v3.jpg" alt="Overview of MULTI-SCORE: a multimodal query is matched against a large database, with examples of text to video, text to audio and image plus text to image retrieval, and a radar chart comparing MULTI-SCORE to prior zero-shot and supervised methods across 12 tasks." width="2400" height="753" loading="eager"></div>
       <figcaption><b>One pipeline, every modality.</b> MULTI-SCORE handles unimodal, cross-modal and composite query-candidate combinations without any task-specific training. Multi-scale Matryoshka embeddings do the coarse retrieval; multimodal question answering, token-wise contextual aggregation and in-context learning do the re-ranking.</figcaption>
     </figure>
   </div>
@@ -499,8 +514,8 @@ footer .right{margin-left:auto; color:#5F6D8C}
     </div>
 
     <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
-      <div class="stage">
-        <div>
+      <div class="stage stack">
+        <div class="prose">
           <h3>Rank a database without ever touching full-scale vectors</h3>
           <p>Matryoshka embeddings are nested: the first 32 numbers of a 1024-dimensional vector are themselves a usable 32-dimensional embedding. Pyramid Rank exploits that. It starts at the smallest scale, computes a cheap <em>upper bound</em> on what the full-scale similarity could be, and discards every candidate whose ceiling already falls below the threshold.</p>
           <div class="eq">
@@ -515,15 +530,15 @@ footer .right{margin-left:auto; color:#5F6D8C}
           </ul>
         </div>
         <figure class="fig">
-          <img src="static/images/stage1_algo_v2.jpg" alt="Pyramid Rank diagram: at each Matryoshka level the embedding grows and more database images are cut, compared to naive full-scale search at the bottom." width="1532" height="632" loading="lazy">
+          <div class="frame"><img src="static/images/stage1_algo_v2.jpg" alt="Pyramid Rank diagram: at each Matryoshka level the embedding grows and more database images are cut, compared to naive full-scale search at the bottom." width="1532" height="632" loading="lazy"></div>
           <figcaption>Low-similarity candidates are cut while vectors are still short, so the expensive full-scale comparisons are only ever made on a handful of survivors.</figcaption>
         </figure>
       </div>
     </div>
 
     <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
-      <div class="stage">
-        <div>
+      <div class="stage stack">
+        <div class="prose">
           <h3>Ask the alignment question in both directions</h3>
           <p>Stage-1 works on text, which loses detail. Stage-2 brings the raw modalities back. For each surviving candidate, a frozen MLLM is prompted twice with chain-of-thought examples: once to summarise how much of the query is found in the candidate, and once the other way around.</p>
           <p>An <code style="font-family:var(--mono);font-size:13px">&lt;emb&gt;</code> token is appended to each prompt. The hidden state just before it has already absorbed the whole prompt, so it serves as the embedding. The cosine similarity between the two directions is the score.</p>
@@ -535,7 +550,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
           </ul>
         </div>
         <figure class="fig">
-          <img src="static/images/stage2_cot.jpg" alt="Bidirectional chain-of-thought scoring: a query-to-candidate prompt and a candidate-to-query prompt each go through a frozen MLLM, hidden states preceding the emb token are extracted, and their cosine similarity gives the CoT score." width="2000" height="356" loading="lazy">
+          <div class="frame"><img src="static/images/stage2_cot.jpg" alt="Bidirectional chain-of-thought scoring: a query-to-candidate prompt and a candidate-to-query prompt each go through a frozen MLLM, hidden states preceding the emb token are extracted, and their cosine similarity gives the CoT score." width="2000" height="356" loading="lazy"></div>
           <figcaption>Two prompts, two embeddings, one similarity. Because both sides are produced the same way, the score stays symmetric and needs no trained projection head.</figcaption>
         </figure>
       </div>
@@ -555,7 +570,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
           </ul>
         </div>
         <figure class="fig">
-          <img src="static/images/stage2_qa.png" alt="QA relevance scoring: yes/no questions generated from the query are answered against each candidate, and the accuracy becomes the score." width="961" height="615" loading="lazy">
+          <div class="frame"><img src="static/images/stage2_qa.png" alt="QA relevance scoring: yes/no questions generated from the query are answered against each candidate, and the accuracy becomes the score." width="961" height="615" loading="lazy"></div>
           <figcaption>Questions come from the query, answers come from the candidate. Accuracy becomes relevance.</figcaption>
         </figure>
       </div>
@@ -575,7 +590,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
           </ul>
         </div>
         <figure class="fig">
-          <img src="static/images/universal_retrieval.png" alt="Two bar charts comparing MULTI-SCORE against variants using naive full-resolution MRL embeddings and dual encoders at Stage-1, showing retrieval time and R@1 across twelve tasks." width="1275" height="1021" loading="lazy">
+          <div class="frame"><img src="static/images/universal_retrieval.png" alt="Two bar charts comparing MULTI-SCORE against variants using naive full-resolution MRL embeddings and dual encoders at Stage-1, showing retrieval time and R@1 across twelve tasks." width="1275" height="1021" loading="lazy"></div>
           <figcaption><b>Cheap Stage-1 costs almost nothing in accuracy.</b> Swapping Pyramid Rank for full-scale MRL or a dual encoder buys a point or two of R@1 while multiplying retrieval time.</figcaption>
         </figure>
       </div>
@@ -613,7 +628,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
     <p class="hint" id="tblHint">Scroll the table sideways to see all 16 M-BEIR columns.</p>
 
     <figure class="fig" style="margin-top:38px">
-      <img src="static/images/qual_v4.jpg" alt="Qualitative comparison of top-3 retrieved results for a composed image-plus-text query and a text-to-video query, comparing MULTI-SCORE, naive MRL and LamRA, with retrieval times below each column." width="1800" height="450" loading="lazy">
+      <div class="frame"><img src="static/images/qual_v4.jpg" alt="Qualitative comparison of top-3 retrieved results for a composed image-plus-text query and a text-to-video query, comparing MULTI-SCORE, naive MRL and LamRA, with retrieval times below each column." width="1800" height="450" loading="lazy"></div>
       <figcaption><b>Right answer, first rank, less time.</b> For the composed query, LamRA misreads the scene context and returns a cafe with the wrong wall colour; naive MRL returns visually close but imprecise videos at three times the latency. MULTI-SCORE grounds the textual edit inside the visual context and returns the target at rank 1 in 0.11 s.</figcaption>
     </figure>
   </div>
@@ -978,7 +993,7 @@ footer .right{margin-left:auto; color:#5F6D8C}
      t:'Mixing the two Stage-2 scores',
      x:'R@1 across all 32 datasets for values of the mixing coefficient. Faded lines are individual datasets, bold lines are the averages. Peak zero-shot performance sits at 0.3 for image retrieval and 0.6 for audio and video.',
      alt:'Line chart of R@1 against the alpha mixing coefficient for image and for audio and video retrieval.'},
-    {src:'static/images/epsilon_and_upperbound_histogram.png', w:782, h:240,
+    {src:'static/images/epsilon_and_upperbound_histogram.png', w:1900, h:583,
      t:'Tolerance, and what the bound reveals',
      x:'Left: a larger tolerance cuts Stage-1 time at a small cost in R@1. Even at the worst setting the method matches previous zero-shot state of the art. Right: the spread of estimated upper bounds tracks dataset difficulty, tight and right-shifted for MSCOCO, broad and left-skewed for FashionIQ.',
      alt:'Two panels: retrieval time and R@1 against tolerance epsilon, and histograms of upper bounds for three datasets.'}
