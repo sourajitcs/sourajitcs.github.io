@@ -1,171 +1,1052 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MULTI-SCORE</title>
-  <style>
-    :root {
-      --bg: #efefef;
-      --text: #1f2a44;
-      --blue: #2f63ff;
-      --navy: #1f2a44;
-      --badge-bg: #ffd873;
-      --badge-border: #f0a500;
-      --white: #ffffff;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MULTI-SCORE &middot; Zero-Shot Multimodal Retrieval with Multi-Scale Contextual Representations</title>
 
-    * {
-      box-sizing: border-box;
-    }
+<!-- MULTI-SCORE project page. Paper, anthology and code links are live below.
+     Content and figures come from the ACL 2026 camera-ready. -->
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
+<meta name="description" content="MULTI-SCORE: a fine-tuning-free two-stage framework for multimodal information retrieval across text, image, video and audio. ACL 2026 Main Conference, Oral." />
+<meta name="author" content="Sourajit Saha, Tejas Gokhale" />
+<link rel="canonical" href="https://sourajitcs.github.io/multiscore/" />
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 48px 20px 60px;
-    }
+<meta property="og:type" content="website" />
+<meta property="og:title" content="MULTI-SCORE: Zero-Shot Multimodal Retrieval with Multi-Scale Contextual Representations" />
+<meta property="og:description" content="Zero-shot state of the art on 12 retrieval tasks across 32 datasets. No fine-tuning, no annotation, 6x faster retrieval. ACL 2026 Main, Oral." />
+<meta property="og:url" content="https://sourajitcs.github.io/multiscore/" />
+<meta property="og:image" content="https://sourajitcs.github.io/multiscore/static/images/teaser_final_v3.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
 
-    .hero {
-      width: 100%;
-      max-width: 1100px;
-      text-align: center;
-    }
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1526'/%3E%3Crect x='4.5' y='4.5' width='23' height='23' rx='5' fill='none' stroke='%23C3D2FF' stroke-width='1.4'/%3E%3Crect x='8.5' y='8.5' width='15' height='15' rx='3.6' fill='none' stroke='%236E8CFF' stroke-width='1.6'/%3E%3Crect x='12.5' y='12.5' width='7' height='7' rx='2' fill='%232E5BFF'/%3E%3C/svg%3E" />
 
-    .title {
-      font-size: clamp(2.2rem, 4.5vw, 4.4rem);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      margin: 0 0 26px;
-      color: var(--text);
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-    .authors {
-      font-size: 1.15rem;
-      line-height: 1.7;
-      margin-bottom: 8px;
-    }
+<style>
+/* ============================ tokens ============================ */
+:root{
+  --ink:#0E1526;
+  --ink-2:#18223A;
+  --slate:#4A5673;
+  --mute:#6C7691;
+  --paper:#E9ECF1;
+  --card:#FFFFFF;
+  --rule:#C9D0DC;
+  --rule-soft:#DDE2EA;
 
-    .authors .name {
-      color: var(--blue);
-      font-weight: 700;
-      text-decoration: none;
-    }
+  --blue:#2E5BFF;
+  --blue-deep:#123CD6;
+  --rust:#E0472C;
+  --gold:#FFC93C;
+  --violet:#7B4DFF;
+  --teal:#00A38B;
 
-    .affiliations {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+  /* matryoshka level ramp, coarse to fine */
+  --l1:#C3D2FF; --l2:#9AB1FF; --l3:#6E8CFF; --l4:#4570FF; --l5:#2E5BFF; --l6:#1233A8;
 
-    .badge {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 14px;
-      background: var(--badge-bg);
-      border: 2px solid var(--badge-border);
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #a64b00;
-      margin-bottom: 28px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+  --sans:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --serif:'Spectral',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 
-    .badge .venue {
-      color: #1d4ed8;
-    }
+  --shell:1220px;
+  --gut:clamp(20px,4vw,56px);
+}
 
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 32px;
-    }
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block}
+a{color:var(--blue-deep); text-underline-offset:3px; text-decoration-thickness:1px}
+a:hover{color:var(--blue)}
+:focus-visible{outline:2.5px solid var(--blue); outline-offset:3px; border-radius:2px}
+h1,h2,h3,h4{font-family:var(--sans); font-weight:700; margin:0; letter-spacing:-.018em; line-height:1.14}
+.shell{max-width:var(--shell); margin:0 auto; padding-inline:var(--gut)}
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--navy);
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.35rem;
-      padding: 14px 26px;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
+/* ============================ nav ============================ */
+.nav{
+  position:sticky; top:0; z-index:60;
+  background:rgba(233,236,241,.86); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-in{display:flex; align-items:center; gap:22px; height:56px; max-width:var(--shell); margin:0 auto; padding-inline:var(--gut)}
+.mark{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-family:var(--sans); font-weight:800; font-size:15px; letter-spacing:.01em; font-stretch:112%}
+.mark svg{flex:none}
+.nav-links{margin-left:auto; display:flex; gap:20px; font-family:var(--sans); font-size:14px; font-weight:500}
+.nav-links a{color:var(--slate); text-decoration:none}
+.nav-links a:hover,.nav-links a.on{color:var(--ink)}
+@media(max-width:720px){ .nav-links a:nth-child(n+4){display:none} .nav-links{gap:14px} }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-    }
+/* ============================ hero ============================ */
+.hero{position:relative; background:var(--ink); color:#EEF1F8; overflow:hidden}
+.hero-rings{position:absolute; inset:0; pointer-events:none; opacity:.5}
+.hero-in{
+  position:relative; max-width:var(--shell); margin:0 auto; padding:clamp(46px,6vw,86px) var(--gut) clamp(52px,6vw,80px);
+  display:grid; grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr); gap:clamp(30px,4vw,60px); align-items:start;
+}
+@media(max-width:960px){ .hero-in{grid-template-columns:1fr; gap:36px} }
 
-    .footer-note {
-      font-size: 1.2rem;
-      color: #333;
-      margin-top: 10px;
-    }
+.venue{
+  display:inline-block; font-family:var(--sans); font-size:13.5px; font-weight:600;
+  letter-spacing:.005em; color:#0E1526; background:var(--gold);
+  padding:6px 14px 6px 11px; border-radius:3px;
+}
+.venue b{font-weight:800}
+.venue .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:#0E1526; opacity:.68; margin-right:9px; vertical-align:1px}
 
-    @media (max-width: 640px) {
-      .btn {
-        font-size: 1.1rem;
-        padding: 12px 20px;
-      }
+h1.title{margin:24px 0 0}
+h1.title .wm{
+  display:block; font-family:var(--sans); font-weight:800; font-stretch:116%;
+  font-size:clamp(2.5rem,5.4vw,4.05rem); letter-spacing:-.038em; line-height:.94; color:#fff;
+}
+h1.title .sub{
+  display:block; margin-top:17px; font-family:var(--sans); font-weight:500;
+  font-size:clamp(1.06rem,1.7vw,1.36rem); line-height:1.3; letter-spacing:-.014em;
+  color:#AEBCDD; max-width:27ch;
+}
+.byline{margin:26px 0 0; font-family:var(--sans); font-size:17px; font-weight:500; color:#DCE3F2}
+.byline a{color:#fff; text-decoration:none; border-bottom:1.5px solid rgba(110,140,255,.75); padding-bottom:1px}
+.byline a:hover{border-bottom-color:var(--gold); color:var(--gold)}
+.affil{margin:8px 0 0; font-size:15.5px; color:#9BA8C4; font-family:var(--sans)}
+.affil code{font-family:var(--mono); font-size:13px; color:#7F8DAC}
 
-      .badge {
-        font-size: 1.05rem;
-      }
+.cta{display:flex; flex-wrap:wrap; gap:9px; margin-top:30px}
+.btn{
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--sans); font-size:15px; font-weight:600;
+  padding:11px 18px; border-radius:4px; text-decoration:none;
+  background:#F4F6FB; color:var(--ink); border:1.5px solid transparent;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn:hover{background:#fff; color:var(--ink)}
+.btn.ghost{background:transparent; color:#D7DEEF; border-color:#33405F}
+.btn.ghost:hover{border-color:var(--l3); color:#fff; background:transparent}
+.btn svg{flex:none; opacity:.75}
 
-      .authors,
-      .affiliations,
-      .footer-note {
-        font-size: 1rem;
-      }
-    }
-  </style>
+/* ============================ pyramid rank demo ============================ */
+.pr{
+  background:linear-gradient(180deg,#141D33 0%,#111A2E 100%);
+  border:1px solid #2B3855; border-radius:8px; padding:18px 18px 16px;
+}
+.pr-top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:2px}
+.pr-kicker{font-family:var(--sans); font-size:12.5px; font-weight:700; color:var(--l2); letter-spacing:.02em}
+.pr-note{font-family:var(--sans); font-size:12px; color:#6E7B99; margin-left:auto}
+.pr-query{font-family:var(--mono); font-size:12.5px; color:#AFC0E6; margin:10px 0 14px; padding:8px 10px; background:#0C1424; border-left:2px solid var(--l4); border-radius:0 3px 3px 0}
+.pr-query span{color:#5F6D8C}
+
+.pr-levels{display:flex; gap:5px; margin-bottom:12px}
+.pr-lv{
+  flex:1; text-align:center; font-family:var(--mono); font-size:11px; padding:5px 0 4px;
+  color:#5D6A88; background:#0C1424; border-radius:3px; border-bottom:2px solid #223052;
+  transition:color .2s ease, background .2s ease, border-color .2s ease;
+}
+.pr-lv.done{color:#93A6D0; border-bottom-color:var(--l4)}
+.pr-lv.now{color:#0E1526; background:var(--l2); border-bottom-color:#fff; font-weight:500}
+
+.pr-bar{height:7px; background:#0C1424; border-radius:2px; overflow:hidden; margin-bottom:14px}
+.pr-bar i{display:block; height:100%; width:3%; background:linear-gradient(90deg,var(--l1),var(--l5)); transition:width .45s cubic-bezier(.22,1,.36,1)}
+
+.pr-grid{display:grid; grid-template-columns:repeat(12,1fr); gap:5px}
+.pr-cell{
+  position:relative; aspect-ratio:1; border-radius:3px;
+  background:#22304F; border:1px solid #2E3E63;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:10px; color:#93A6D0;
+  transition:opacity .35s ease, transform .35s ease, background .35s ease, border-color .35s ease;
+}
+.pr-cell[data-m="i"]{background:#1B2E5C; border-color:#2E4B96; color:#8FB0FF}
+.pr-cell[data-m="v"]{background:#2A2150; border-color:#463585; color:#B39CFF}
+.pr-cell[data-m="a"]{background:#0E332F; border-color:#175A4F; color:#5FD8C1}
+.pr-cell[data-m="t"]{background:#22304F; border-color:#33456E; color:#9DB0DA}
+.pr-cell.out{opacity:.42; transform:scale(.86); background:#151F36; border-color:#222E4C; color:#39445E}
+.pr-cell.out::after{content:""; position:absolute; inset:22% 6%; border-top:1px solid #46527180; transform:rotate(-38deg)}
+.pr-cell.hit{border-color:var(--gold); box-shadow:0 0 0 2px rgba(255,201,60,.28); color:var(--gold)}
+
+.pr-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin:15px 0 0; padding:0; border-top:1px solid #253254; padding-top:13px}
+.pr-stats div{margin:0}
+.pr-stats dt{font-family:var(--sans); font-size:11.5px; color:#6E7B99; margin-bottom:3px}
+.pr-stats dd{margin:0; font-family:var(--mono); font-size:19px; font-weight:500; color:#EAF0FF; letter-spacing:-.02em}
+.pr-stats dd small{display:block; font-size:11.5px; color:#7C8AA9; font-weight:400; margin-top:2px}
+.pr-foot{display:flex; align-items:center; gap:12px; margin-top:14px; flex-wrap:wrap}
+.pr-btn{
+  font-family:var(--sans); font-size:13.5px; font-weight:600; color:#0E1526; background:var(--l2);
+  border:0; border-radius:4px; padding:8px 15px; cursor:pointer; transition:background .15s ease;
+}
+.pr-btn:hover{background:#fff}
+.pr-legend{display:flex; gap:12px; font-family:var(--sans); font-size:11.5px; color:#6E7B99; flex-wrap:wrap}
+.pr-legend b{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:1px}
+@media(max-width:520px){ .pr-grid{grid-template-columns:repeat(8,1fr)} .pr-stats{grid-template-columns:1fr 1fr} }
+
+/* ============================ stat strip ============================ */
+.strip{background:var(--ink-2); color:#DDE4F4; border-top:1px solid #26314D}
+.strip-in{max-width:var(--shell); margin:0 auto; padding:0 var(--gut); display:grid; grid-template-columns:repeat(6,1fr)}
+.strip-in > div{padding:20px 14px 22px; border-left:1px solid #29344F}
+.strip-in > div:first-child{border-left:0; padding-left:0}
+.strip b{display:block; font-family:var(--sans); font-size:clamp(1.35rem,2.4vw,1.85rem); font-weight:800; letter-spacing:-.03em; color:#fff; line-height:1}
+.strip span{display:block; font-family:var(--sans); font-size:12.5px; color:#8B98B8; margin-top:7px; line-height:1.35}
+@media(max-width:860px){ .strip-in{grid-template-columns:repeat(3,1fr)} .strip-in > div:nth-child(3n+1){border-left:0} .strip-in > div:first-child{padding-left:14px} }
+@media(max-width:480px){ .strip-in{grid-template-columns:repeat(2,1fr)} .strip-in > div:nth-child(n){border-left:1px solid #29344F} .strip-in > div:nth-child(2n+1){border-left:0} }
+
+/* ============================ sections ============================ */
+section{padding:clamp(56px,7vw,96px) 0}
+.sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:30px; border-bottom:1px solid var(--rule); padding-bottom:14px}
+.sec-head h2{font-size:clamp(1.5rem,2.7vw,2.05rem); font-weight:800; letter-spacing:-.028em}
+.sec-head p{margin:0 0 0 auto; font-family:var(--sans); font-size:13.5px; color:var(--mute); text-align:right}
+@media(max-width:640px){ .sec-head{flex-direction:column; gap:6px} .sec-head p{margin:0; text-align:left} }
+
+.two{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:clamp(28px,4vw,58px); align-items:start}
+@media(max-width:860px){ .two{grid-template-columns:1fr} }
+.lede{font-size:19px; line-height:1.6}
+.abstract p{max-width:66ch}
+.contrib{list-style:none; margin:0; padding:0}
+.contrib li{position:relative; padding:13px 0 13px 30px; border-top:1px solid var(--rule-soft); font-size:16px; line-height:1.55}
+.contrib li:first-child{border-top:0; padding-top:0}
+.contrib li::before{
+  content:""; position:absolute; left:1px; top:19px; width:13px; height:13px; border-radius:3px;
+  border:1.5px solid var(--l3);
+}
+.contrib li::after{
+  content:""; position:absolute; left:5.5px; top:23.5px; width:4px; height:4px; border-radius:1px;
+  background:var(--blue);
+}
+.contrib li:first-child::before{top:6px}
+.contrib li:first-child::after{top:10.5px}
+.contrib li strong{font-family:var(--sans); font-weight:700; letter-spacing:-.01em}
+
+figure{margin:0}
+.fig{background:var(--card); border:1px solid var(--rule); border-radius:5px; padding:14px}
+.fig img{cursor:zoom-in; border-radius:2px}
+.fig figcaption{font-size:14.5px; line-height:1.5; color:var(--slate); margin-top:12px; padding-top:11px; border-top:1px solid var(--rule-soft); max-width:88ch}
+.fig figcaption b{font-family:var(--sans); font-weight:700; color:var(--ink)}
+
+/* ============================ method tabs ============================ */
+.tabs{display:flex; gap:0; border-bottom:1px solid var(--rule); margin-bottom:26px; overflow-x:auto; scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  appearance:none; background:none; border:0; border-bottom:3px solid transparent;
+  font-family:var(--sans); font-size:14.5px; font-weight:600; color:var(--mute);
+  padding:11px 17px 12px; cursor:pointer; white-space:nowrap; margin-bottom:-1px;
+  transition:color .15s ease, border-color .15s ease;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--blue)}
+.tab .n{font-family:var(--mono); font-size:11.5px; color:var(--l4); margin-right:7px}
+.panel[hidden]{display:none}
+.stage{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.06fr); gap:clamp(24px,3.4vw,46px); align-items:start}
+@media(max-width:900px){ .stage{grid-template-columns:1fr} }
+.stage h3{font-size:1.32rem; margin-bottom:12px; letter-spacing:-.022em}
+.stage p{font-size:16px; margin:0 0 15px}
+.eq{
+  font-family:var(--mono); font-size:13.5px; line-height:1.9; color:var(--ink);
+  background:#fff; border:1px solid var(--rule); border-left:3px solid var(--blue);
+  padding:11px 14px; border-radius:0 4px 4px 0; overflow-x:auto;
+}
+.eq span{display:block; white-space:nowrap}
+.eq span + span{margin-top:2px}
+.eq em{color:var(--rust); font-style:normal}
+.eq b{color:var(--blue-deep); font-weight:500}
+.keyval{list-style:none; margin:16px 0 0; padding:0; font-family:var(--sans); font-size:14px}
+.keyval li{display:flex; gap:12px; padding:7px 0; border-top:1px solid var(--rule-soft)}
+.keyval span:first-child{color:var(--mute); min-width:132px}
+.keyval span:last-child{color:var(--ink); font-weight:500}
+
+/* ============================ results ============================ */
+.tbl-wrap{background:var(--card); border:1px solid var(--rule); border-radius:5px; overflow:hidden}
+.tbl-scroll{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:13px}
+thead th{
+  font-weight:600; color:var(--slate); text-align:center; padding:8px 9px;
+  border-bottom:1px solid var(--rule); background:#F6F8FB; white-space:nowrap; font-size:12px;
+}
+thead tr.grp th{color:var(--ink); font-weight:700; font-size:12.5px; border-bottom:0; padding-bottom:3px}
+thead tr.grp th span{display:inline-block; border-bottom:2px solid var(--l3); padding:0 8px 3px}
+th.rowhead,td.rowhead{
+  text-align:left; position:sticky; left:0; background:#fff; z-index:2;
+  border-right:1px solid var(--rule); white-space:nowrap; padding-left:14px; font-weight:500;
+}
+thead th.rowhead{background:#F6F8FB}
+tbody td{padding:7px 9px; text-align:center; border-bottom:1px solid var(--rule-soft); font-variant-numeric:tabular-nums; color:var(--slate)}
+tbody tr.band td{background:#F2F4F8; font-family:var(--sans); font-size:11.5px; font-weight:700; color:var(--mute); text-align:left; padding:5px 14px; letter-spacing:.03em}
+tbody tr.ours td{background:#EFF3FF; font-weight:700; color:var(--ink)}
+tbody tr.ours td.rowhead{background:#E6ECFF; color:var(--blue-deep); font-weight:800}
+td.best{background:rgba(255,201,60,.42) !important; color:var(--ink); font-weight:700}
+tbody tr.ours td.best{background:rgba(255,201,60,.72) !important}
+td.zsbest{color:var(--blue-deep); font-weight:700}
+.tbl-foot{display:flex; flex-wrap:wrap; gap:16px; padding:11px 14px; border-top:1px solid var(--rule); font-family:var(--sans); font-size:12px; color:var(--mute); background:#FAFBFD}
+.tbl-foot i{font-style:normal; display:inline-flex; align-items:center; gap:6px}
+.sw{width:11px; height:11px; border-radius:2px; display:inline-block}
+.hint{font-family:var(--sans); font-size:12.5px; color:var(--mute); margin-top:10px}
+@media(max-width:640px){
+  th.rowhead,td.rowhead{max-width:112px; white-space:normal; line-height:1.25; padding:6px 8px 6px 11px; font-size:12px}
+  thead th{font-size:11px; padding:7px 6px}
+  tbody td{padding:6px 7px; font-size:12px}
+  tbody tr.band td{padding:5px 11px}
+}
+
+.wins{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:0; margin-bottom:28px; border-top:1px solid var(--rule)}
+.wins div{padding:16px 18px 18px; border-bottom:1px solid var(--rule); border-right:1px solid var(--rule-soft)}
+.wins div:last-child{border-right:0}
+.wins b{display:block; font-family:var(--sans); font-size:1.55rem; font-weight:800; letter-spacing:-.03em; color:var(--blue-deep); line-height:1}
+.wins span{display:block; font-family:var(--sans); font-size:13px; color:var(--slate); margin-top:8px; line-height:1.4}
+
+/* ============================ carousel ============================ */
+.car{background:var(--card); border:1px solid var(--rule); border-radius:5px; overflow:hidden}
+.car-stage{position:relative; padding:22px 22px 6px; min-height:220px}
+.car-slide[hidden]{display:none}
+.car-slide img{margin:0 auto; max-height:min(56vh,520px); width:auto; cursor:zoom-in}
+.car-cap{padding:16px 22px 18px; border-top:1px solid var(--rule-soft); display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:end}
+.car-cap h4{font-family:var(--sans); font-size:15.5px; font-weight:700; margin:0 0 5px; letter-spacing:-.015em}
+.car-cap p{margin:0; font-size:14.5px; line-height:1.5; color:var(--slate); max-width:76ch}
+.car-nav{display:flex; align-items:center; gap:8px}
+.car-nav button{
+  width:36px; height:36px; border-radius:4px; border:1px solid var(--rule); background:#fff;
+  cursor:pointer; color:var(--ink); display:flex; align-items:center; justify-content:center; padding:0;
+  transition:background .15s ease, border-color .15s ease;
+}
+.car-nav button:hover{background:var(--ink); border-color:var(--ink); color:#fff}
+.car-count{font-family:var(--mono); font-size:12.5px; color:var(--mute); min-width:44px; text-align:center}
+.dots{display:flex; gap:5px; padding:0 22px 18px}
+.dots button{
+  flex:1; height:3px; border:0; padding:0; background:var(--rule); cursor:pointer; border-radius:2px;
+  transition:background .2s ease;
+}
+.dots button[aria-current="true"]{background:var(--blue)}
+@media(max-width:640px){ .car-cap{grid-template-columns:1fr} .car-nav{justify-content:flex-start} }
+
+/* ============================ bibtex / footer ============================ */
+.cite-box{background:var(--ink); border-radius:5px; overflow:hidden}
+.cite-top{display:flex; align-items:center; gap:12px; padding:11px 16px; border-bottom:1px solid #26314D}
+.cite-top span{font-family:var(--sans); font-size:13px; color:#8B98B8; font-weight:500}
+.cite-top button{
+  margin-left:auto; font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer;
+  background:#26324F; color:#DDE4F4; border:0; border-radius:4px; padding:7px 13px; transition:background .15s ease;
+}
+.cite-top button:hover{background:var(--blue)}
+pre{margin:0; padding:16px; overflow-x:auto; font-family:var(--mono); font-size:12.5px; line-height:1.75; color:#C6D2EE}
+pre .k{color:#7FA3FF} pre .v{color:#FFD98A}
+
+.ack{margin-top:34px; font-size:15px; color:var(--slate); max-width:74ch}
+.ack h3{font-family:var(--sans); font-size:14px; font-weight:700; color:var(--ink); margin-bottom:8px}
+footer{background:var(--ink); color:#8B98B8; padding:34px 0 40px; font-family:var(--sans); font-size:13.5px}
+footer .shell{display:flex; gap:20px; flex-wrap:wrap; align-items:center}
+footer a{color:#C6D2EE; text-decoration:none; border-bottom:1px solid #33405F}
+footer a:hover{color:#fff; border-bottom-color:var(--l3)}
+footer .right{margin-left:auto; color:#5F6D8C}
+
+/* ============================ lightbox ============================ */
+.lb{position:fixed; inset:0; z-index:200; background:rgba(10,15,26,.94); display:none; padding:4vh 4vw; cursor:zoom-out}
+.lb[open]{display:flex; align-items:center; justify-content:center}
+.lb img{max-width:100%; max-height:92vh; width:auto; border-radius:3px; background:#fff}
+.lb-close{position:absolute; top:14px; right:18px; background:none; border:0; color:#9BA8C4; font-family:var(--sans); font-size:14px; cursor:pointer}
+.lb-close:hover{color:#fff}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.001ms !important; animation-duration:.001ms !important}
+}
+</style>
 </head>
 <body>
-  <main class="page">
-    <section class="hero">
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="1.2" y="1.2" width="29.6" height="29.6" rx="6.5" fill="none" stroke="#9AB1FF" stroke-width="1.5"/>
+        <rect x="7" y="7" width="18" height="18" rx="4" fill="none" stroke="#4570FF" stroke-width="1.8"/>
+        <rect x="12.5" y="12.5" width="7" height="7" rx="2" fill="#2E5BFF"/>
+      </svg>
+      MULTI-SCORE
+    </a>
+    <div class="nav-links">
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#cite">Cite</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="top">
+  <svg class="hero-rings" aria-hidden="true" preserveAspectRatio="xMaxYMid slice" viewBox="0 0 1200 620">
+    <g fill="none" stroke="#3A5CC8" stroke-opacity=".26">
+      <rect x="800" y="10" width="600" height="600" rx="120" stroke-width="1"/>
+      <rect x="850" y="60" width="500" height="500" rx="100" stroke-width="1"/>
+      <rect x="900" y="110" width="400" height="400" rx="80" stroke-width="1.1"/>
+      <rect x="950" y="160" width="300" height="300" rx="60" stroke-width="1.2"/>
+      <rect x="1000" y="210" width="200" height="200" rx="40" stroke-width="1.3"/>
+      <rect x="1050" y="260" width="100" height="100" rx="22" stroke-width="1.4" stroke-opacity=".5"/>
+    </g>
+  </svg>
+
+  <div class="hero-in">
+    <div>
+      <span class="venue"><span class="dot"></span>Accepted at <b>ACL&nbsp;2026</b> &middot; Main Conference, Oral</span>
       <h1 class="title">
-        Zero-Shot Multimodal Retrieval with Multi-Scale Contextual Representations
+        <span class="wm">MULTI-SCORE</span>
+        <span class="sub">Zero-Shot Multimodal Retrieval with Multi&#8209;Scale Contextual Representations</span>
       </h1>
 
-      <div class="authors">
-        <a class="name" href="https://sourajitcs.github.io/" target="_blank" rel="noopener noreferrer">Sourajit Saha</a>,
-        <a class="name" href="https://www.tejasgokhale.com/" target="_blank" rel="noopener noreferrer">Tejas Gokhale</a>
-      </div>
+      <p class="byline">
+        <a href="https://sourajitcs.github.io/" target="_blank" rel="noopener">Sourajit Saha</a> and
+        <a href="https://www.tejasgokhale.com/" target="_blank" rel="noopener">Tejas Gokhale</a>
+      </p>
+      <p class="affil">University of Maryland, Baltimore County &nbsp;&middot;&nbsp; <code>{ssaha2, gokhale}@umbc.edu</code></p>
 
-      <div class="affiliations">
-        University of Maryland, Baltimore County
+      <div class="cta">
+        <a class="btn" id="link-paper" href="https://aclanthology.org/2026.acl-long.930.pdf" target="_blank" rel="noopener" aria-label="Read the paper, PDF">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1.8h6l4 4v8.4H3z"/><path d="M9 1.8v4h4"/></svg>
+          Paper
+        </a>
+        <a class="btn" id="link-anthology" href="https://aclanthology.org/2026.acl-long.930/" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2.5h4.5V7"/><path d="M13.5 2.5 7.5 8.5"/><path d="M11.5 9.5v3.6a.9.9 0 0 1-.9.9H2.9a.9.9 0 0 1-.9-.9V5.4a.9.9 0 0 1 .9-.9h3.6"/></svg>
+          ACL Anthology
+        </a>
+        <a class="btn" id="link-code" href="https://github.com/sourajitcs/multiscore" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5.6 4.4 2 8l3.6 3.6M10.4 4.4 14 8l-3.6 3.6"/></svg>
+          Code
+        </a>
+        <a class="btn ghost" href="#cite">BibTeX</a>
       </div>
+    </div>
 
-      <div class="badge">🔥 Accepted at <span class="venue">ACL 2026 (Main + Oral)</span> 🔥</div>
-
-      <div class="buttons">
-        <a class="btn" href="./">📄 Paper</a>
-        <a class="btn" href="./">💻 Code</a>
-        <a class="btn" href="./">📚 arXiv</a>
+    <!-- live Stage-1 demo -->
+    <div class="pr" id="pr">
+      <div class="pr-top">
+        <span class="pr-kicker">Pyramid Rank, running</span>
+        <span class="pr-note">illustrative run, 48 candidates</span>
       </div>
+      <div class="pr-query"><span>query:</span> a dog in green grass</div>
 
-      <div class="footer-note">
-        <h2>
-        Project page under construction: check back soon!
-        </h2>
+      <div class="pr-levels" id="prLevels" aria-hidden="true"></div>
+      <div class="pr-bar"><i id="prBar"></i></div>
+
+      <div class="pr-grid" id="prGrid" role="img" aria-label="Animated grid of 48 database candidates being filtered level by level"></div>
+
+      <dl class="pr-stats">
+        <div><dt>Candidates left</dt><dd id="prAlive">48</dd></div>
+        <div><dt>Embedding size</dt><dd id="prDim">32<small> / 1024</small></dd></div>
+        <div><dt>Similarity ops</dt><dd id="prOps">0<small> / 49,152</small></dd></div>
+      </dl>
+
+      <div class="pr-foot">
+        <button class="pr-btn" id="prRun" type="button">Run again</button>
+        <div class="pr-legend">
+          <span><b style="background:#8FB0FF"></b>image</span>
+          <span><b style="background:#B39CFF"></b>video</span>
+          <span><b style="background:#5FD8C1"></b>audio</span>
+          <span><b style="background:#FFC93C"></b>kept for Stage&nbsp;2</span>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-in">
+    <div><b>12</b><span>retrieval tasks</span></div>
+    <div><b>32</b><span>datasets</span></div>
+    <div><b>5.7M</b><span>database items</span></div>
+    <div><b>250K</b><span>queries</span></div>
+    <div><b>0</b><span>training or fine-tuning</span></div>
+    <div><b>6&times;</b><span>faster than prior SOTA</span></div>
+  </div>
+</div>
+
+<!-- ============================ ABSTRACT ============================ -->
+<section id="abstract">
+  <div class="shell">
+    <div class="sec-head"><h2>Abstract</h2><p>ACL 2026, Main Conference (Oral)</p></div>
+    <div class="two">
+      <div class="abstract">
+        <p class="lede">In multimodal information retrieval (MMIR), candidates relevant to an input query need to be retrieved from a database, where the query and database items span different modalities. As real-world databases evolve, repeatedly annotating and indexing data and re-optimizing domain-specific models across modalities is impractical.</p>
+        <p>We present <strong>MULTI-SCORE</strong>, a fine-tuning-free, two-stage MMIR approach that couples efficient candidate filtering with fine-grained multimodal re-ranking. Stage-1 adopts Matryoshka representations to efficiently filter out low-relevance candidates without expensive similarity computations on full-scale representations for the entire database. Stage-2 re-ranks the filtered candidates by computing their fine-grained multimodal contextual representations with two scoring functions for semantic alignment using chain-of-thought prompting and question-answering.</p>
+        <p>Experiments demonstrate state-of-the-art zero-shot retrieval on 12 MMIR tasks across 32 datasets while outperforming supervised methods on 23 datasets.</p>
+      </div>
+      <ul class="contrib">
+        <li><strong>A zero-shot MMIR system</strong> that is efficient and aligns text, image, video and audio in unimodal, cross-modal and composite query-candidate combinations.</li>
+        <li><strong>Pyramid Rank</strong>, a filtering algorithm with an admissible similarity upper bound over multi-scale representations.</li>
+        <li><strong>Two re-ranking scores</strong>, Bidirectional-CoT embedding and QA relevance, for fine-grained multimodal alignment.</li>
+        <li><strong>Experiments at scale</strong>, on 12 tasks and 32 datasets, plus a joint pool of 5.7M items retrieved in one universal search space.</li>
+      </ul>
+    </div>
+
+    <figure class="fig" style="margin-top:38px">
+      <img src="static/images/teaser_final_v3.jpg" alt="Overview of MULTI-SCORE: a multimodal query is matched against a large database, with examples of text to video, text to audio and image plus text to image retrieval, and a radar chart comparing MULTI-SCORE to prior zero-shot and supervised methods across 12 tasks." width="2400" height="753" loading="eager">
+      <figcaption><b>One pipeline, every modality.</b> MULTI-SCORE handles unimodal, cross-modal and composite query-candidate combinations without any task-specific training. Multi-scale Matryoshka embeddings do the coarse retrieval; multimodal question answering, token-wise contextual aggregation and in-context learning do the re-ranking.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ METHOD ============================ -->
+<section id="method" style="background:#E3E7EE; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)">
+  <div class="shell">
+    <div class="sec-head"><h2>How it works</h2><p>Coarse filtering, then fine-grained alignment</p></div>
+
+    <div class="tabs" role="tablist" aria-label="Method stages">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><span class="n">01</span>Stage 1 &middot; Pyramid Rank</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><span class="n">02</span>Stage 2 &middot; Bidirectional CoT</button>
+      <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false"><span class="n">03</span>Stage 2 &middot; QA relevance</button>
+      <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false"><span class="n">04</span>Putting it together</button>
+    </div>
+
+    <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+      <div class="stage">
+        <div>
+          <h3>Rank a database without ever touching full-scale vectors</h3>
+          <p>Matryoshka embeddings are nested: the first 32 numbers of a 1024-dimensional vector are themselves a usable 32-dimensional embedding. Pyramid Rank exploits that. It starts at the smallest scale, computes a cheap <em>upper bound</em> on what the full-scale similarity could be, and discards every candidate whose ceiling already falls below the threshold.</p>
+          <div class="eq">
+            <span>sim(x<sub>q</sub><sup>L</sup>, x<sub>c</sub><sup>L</sup>) &nbsp;&le;&nbsp; <em>U<sub>q,c</sub><sup>&#8467;</sup></em></span>
+            <span><em>U<sub>q,c</sub><sup>&#8467;</sup></em> = <b>sim(z<sub>q</sub><sup>&#8467;</sup>, z<sub>c</sub><sup>&#8467;</sup>)</b> + <b>&radic;( (1&minus;&#8214;z<sub>q</sub><sup>&#8467;</sup>&#8214;&sup2;)(1&minus;&#8214;z<sub>c</sub><sup>&#8467;</sup>&#8214;&sup2;) )</b></span>
+          </div>
+          <p style="margin-top:15px">Both terms on the right are known at level <em>&#8467;</em>, so the bound costs nothing beyond the small-vector dot product. Survivors move up one scale, the threshold tightens by bisection, and the loop repeats until only top-<em>K</em> remain.</p>
+          <ul class="keyval">
+            <li><span>Admissible</span><span>a pruned candidate can never have been relevant</span></li>
+            <li><span>Convergent</span><span>&#8968;log&#8322;(w&#8320;/&epsilon;)&#8969; steps, independent of database size</span></li>
+            <li><span>Scales</span><span>32, 64, 128, 256, 512, 1024 (Qwen3-MRL)</span></li>
+          </ul>
+        </div>
+        <figure class="fig">
+          <img src="static/images/stage1_algo_v2.jpg" alt="Pyramid Rank diagram: at each Matryoshka level the embedding grows and more database images are cut, compared to naive full-scale search at the bottom." width="1532" height="632" loading="lazy">
+          <figcaption>Low-similarity candidates are cut while vectors are still short, so the expensive full-scale comparisons are only ever made on a handful of survivors.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <div class="stage">
+        <div>
+          <h3>Ask the alignment question in both directions</h3>
+          <p>Stage-1 works on text, which loses detail. Stage-2 brings the raw modalities back. For each surviving candidate, a frozen MLLM is prompted twice with chain-of-thought examples: once to summarise how much of the query is found in the candidate, and once the other way around.</p>
+          <p>An <code style="font-family:var(--mono);font-size:13px">&lt;emb&gt;</code> token is appended to each prompt. The hidden state just before it has already absorbed the whole prompt, so it serves as the embedding. The cosine similarity between the two directions is the score.</p>
+          <div class="eq">S<sub>CoT</sub>(q, c<sub>k</sub>) = cosine( <b>z<sub>q2c</sub></b>(q, c<sub>k</sub>), <b>z<sub>c2q</sub></b>(c<sub>k</sub>, q) )</div>
+          <ul class="keyval">
+            <li><span>Backbone</span><span>Qwen2.5-Omni-7B, frozen</span></li>
+            <li><span>Prompting</span><span>2 in-context CoT examples per direction</span></li>
+            <li><span>Supervision</span><span>none</span></li>
+          </ul>
+        </div>
+        <figure class="fig">
+          <img src="static/images/stage2_cot.jpg" alt="Bidirectional chain-of-thought scoring: a query-to-candidate prompt and a candidate-to-query prompt each go through a frozen MLLM, hidden states preceding the emb token are extracted, and their cosine similarity gives the CoT score." width="2000" height="356" loading="lazy">
+          <figcaption>Two prompts, two embeddings, one similarity. Because both sides are produced the same way, the score stays symmetric and needs no trained projection head.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+      <div class="stage">
+        <div>
+          <h3>Turn the query into questions, then interrogate each candidate</h3>
+          <p>The same MLLM converts a query into <em>M</em> discriminative yes/no questions with known answers. Every surviving candidate is then handed to the model as context, and its relevance score is simply how many of those questions it answers correctly.</p>
+          <div class="eq">S<sub>QA</sub>(q, c<sub>k</sub>) = (1/M) &Sigma;<sub>m</sub> <b>1</b>[ ans<sup>m</sup> = MLLM(que<sup>m</sup>, c<sub>k</sub>) ]</div>
+          <p style="margin-top:15px">The by-product is explanation. The QA log for a candidate says exactly which parts of the query it satisfied and which it failed, so a ranking decision can be read rather than guessed at.</p>
+          <ul class="keyval">
+            <li><span>Question type</span><span>yes / no, generated from the query</span></li>
+            <li><span>Decoding</span><span>temperature 0, 5 max tokens</span></li>
+            <li><span>Gives you</span><span>a human-readable reason per candidate</span></li>
+          </ul>
+        </div>
+        <figure class="fig">
+          <img src="static/images/stage2_qa.png" alt="QA relevance scoring: yes/no questions generated from the query are answered against each candidate, and the accuracy becomes the score." width="961" height="615" loading="lazy">
+          <figcaption>Questions come from the query, answers come from the candidate. Accuracy becomes relevance.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="panel" id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+      <div class="stage">
+        <div>
+          <h3>One convex combination, then re-rank</h3>
+          <p>The two Stage-2 scores are complementary: the CoT embedding captures overall semantic overlap, the QA score captures whether specific facts hold. They are mixed with a single coefficient and used to re-order the top-<em>K</em> shortlist.</p>
+          <div class="eq">S<sub>re-rank</sub>(q, c<sub>k</sub>) = <em>&alpha;</em> &middot; <b>S<sub>CoT</sub></b>(q, c<sub>k</sub>) + (1 &minus; <em>&alpha;</em>) &middot; <b>S<sub>QA</sub></b>(q, c<sub>k</sub>)</div>
+          <p style="margin-top:15px">A single &alpha; is tuned per modality group (0.3 and 0.6 in the paper), and nothing else is fit to the data. Both scores run in parallel on frozen models, so Stage-2 adds re-ranking quality without adding a training pipeline.</p>
+          <ul class="keyval">
+            <li><span>Offline cost</span><span>20 GPU-hours of captioning for 5.7M items</span></li>
+            <li><span>Online cost</span><span>0.87 s per query, end to end</span></li>
+            <li><span>Storage</span><span>16.7 KB per video, against 700 to 1400 KB for classic pipelines</span></li>
+          </ul>
+        </div>
+        <figure class="fig">
+          <img src="static/images/universal_retrieval.png" alt="Two bar charts comparing MULTI-SCORE against variants using naive full-resolution MRL embeddings and dual encoders at Stage-1, showing retrieval time and R@1 across twelve tasks." width="1275" height="1021" loading="lazy">
+          <figcaption><b>Cheap Stage-1 costs almost nothing in accuracy.</b> Swapping Pyramid Rank for full-scale MRL or a dual encoder buys a point or two of R@1 while multiplying retrieval time.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ RESULTS ============================ -->
+<section id="results">
+  <div class="shell">
+    <div class="sec-head"><h2>Results</h2><p>Zero-shot throughout, compared against supervised systems</p></div>
+
+    <div class="wins">
+      <div><b>+37%</b><span>over the best zero-shot method on InfoSeek</span></div>
+      <div><b>+36%</b><span>over the best zero-shot method on WebQA</span></div>
+      <div><b>23</b><span>datasets where it beats supervised methods</span></div>
+      <div><b>55.7</b><span>R@1 on MSRVTT-1kA, text to video</span></div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Result tables">
+      <button class="tab rtab" role="tab" aria-controls="resPanel" aria-selected="true" data-t="mbeir">M-BEIR</button>
+      <button class="tab rtab" role="tab" aria-controls="resPanel" aria-selected="false" data-t="vl">Urban-1K, Flickr30K, GeneCIS</button>
+      <button class="tab rtab" role="tab" aria-controls="resPanel" aria-selected="false" data-t="video">Video</button>
+      <button class="tab rtab" role="tab" aria-controls="resPanel" aria-selected="false" data-t="audio">Audio</button>
+    </div>
+
+    <div class="tbl-wrap" id="resPanel" role="region" aria-live="polite" aria-label="Retrieval results">
+      <div class="tbl-scroll"><table id="resTable"></table></div>
+      <div class="tbl-foot">
+        <i><span class="sw" style="background:rgba(255,201,60,.72)"></span>best overall</i>
+        <i><span class="sw" style="background:#EFF3FF;border:1px solid var(--rule)"></span>MULTI-SCORE, zero-shot</i>
+        <i id="metricNote">Metric per column as in the paper</i>
+      </div>
+    </div>
+    <p class="hint" id="tblHint">Scroll the table sideways to see all 16 M-BEIR columns.</p>
+
+    <figure class="fig" style="margin-top:38px">
+      <img src="static/images/qual_v4.jpg" alt="Qualitative comparison of top-3 retrieved results for a composed image-plus-text query and a text-to-video query, comparing MULTI-SCORE, naive MRL and LamRA, with retrieval times below each column." width="1800" height="450" loading="lazy">
+      <figcaption><b>Right answer, first rank, less time.</b> For the composed query, LamRA misreads the scene context and returns a cafe with the wrong wall colour; naive MRL returns visually close but imprecise videos at three times the latency. MULTI-SCORE grounds the textual edit inside the visual context and returns the target at rank 1 in 0.11 s.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================ ANALYSIS CAROUSEL ============================ -->
+<section id="analysis" style="background:#E3E7EE; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)">
+  <div class="shell">
+    <div class="sec-head"><h2>What we learned</h2><p>Use the arrows, or the left and right keys</p></div>
+
+    <div class="car" id="car">
+      <div class="car-stage" id="carStage"></div>
+      <div class="dots" id="carDots"></div>
+      <div class="car-cap">
+        <div>
+          <h4 id="carTitle"></h4>
+          <p id="carText"></p>
+        </div>
+        <div class="car-nav">
+          <button type="button" id="carPrev" aria-label="Previous figure">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 3 5 8l5 5"/></svg>
+          </button>
+          <span class="car-count" id="carCount"></span>
+          <button type="button" id="carNext" aria-label="Next figure">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 3l5 5-5 5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CITE ============================ -->
+<section id="cite">
+  <div class="shell">
+    <div class="sec-head"><h2>Cite this work</h2><p>ACL Anthology 2026.acl-long.930, pages 20304 to 20324</p></div>
+    <div class="cite-box">
+      <div class="cite-top">
+        <span>BibTeX</span>
+        <button type="button" id="copyBib">Copy BibTeX</button>
+      </div>
+<pre id="bib">@inproceedings{saha2026zero,
+  title={Zero-Shot Multimodal Retrieval with Multi-Scale Contextual Representations},
+  author={Saha, Sourajit and Gokhale, Tejas},
+  booktitle={Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages={20304--20324},
+  year={2026}
+}</pre>
+    </div>
+
+    <div class="ack">
+      <h3>Acknowledgments</h3>
+      <p>This work was funded in part by the Defense Advanced Research Projects Agency's (DARPA) SciFy program under agreement number HR00112520301. The U.S. Government is authorized to reproduce and distribute reprints for Governmental purposes notwithstanding any copyright notation thereon. The views, opinions, and conclusions contained herein are those of the authors and should not be interpreted as necessarily representing the official policies or endorsements, either express or implied, of employers, funding agencies, or governments. We acknowledge high performance computing support from UMBC HPCF and a Lambda Inc. award to SS. We thank Reno Kriz for initial discussions on training-free retrieval and Frank Ferraro for feedback on the manuscript.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <span>MULTI-SCORE &middot; ACL 2026</span>
+    <a href="https://aclanthology.org/2026.acl-long.930.pdf" target="_blank" rel="noopener">Paper</a>
+    <a href="https://github.com/sourajitcs/multiscore" target="_blank" rel="noopener">Code</a>
+    <a href="https://sourajitcs.github.io/" target="_blank" rel="noopener">Sourajit Saha</a>
+    <a href="https://www.tejasgokhale.com/" target="_blank" rel="noopener">Tejas Gokhale</a>
+    <a href="https://umbc.edu" target="_blank" rel="noopener">UMBC</a>
+    <span class="right">ACL 2026, pages 20304 to 20324</span>
+  </div>
+</footer>
+
+<div class="lb" id="lb">
+  <button class="lb-close" type="button" id="lbClose">Close</button>
+  <img id="lbImg" alt="">
+</div>
+
+<script>
+/* ==================================================================
+   1. Pyramid Rank simulator
+   ================================================================== */
+(function(){
+  var DIMS=[32,64,128,256,512,1024], N=48, D=1024, NAIVE=N*D;
+  var grid=document.getElementById('prGrid'), levels=document.getElementById('prLevels'),
+      bar=document.getElementById('prBar'), elAlive=document.getElementById('prAlive'),
+      elDim=document.getElementById('prDim'), elOps=document.getElementById('prOps'),
+      runBtn=document.getElementById('prRun');
+  if(!grid) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // deterministic candidate pool so the demo is reproducible
+  function pool(){
+    var s=987654321;
+    function rnd(){ s=(s*1664525+1013904223)%4294967296; return s/4294967296; }
+    var mods=['t','i','v','a'], arr=[];
+    for(var i=0;i<N;i++){
+      var u=rnd();
+      arr.push({sim:0.60*Math.pow(u,2.2), mod:mods[Math.floor(rnd()*4)]});
+    }
+    var hits=[5,11,17,23,28,34,40,44], hm=['i','v','i','a','i','v','a','i'];
+    hits.forEach(function(h,i){ arr[h].sim=0.96-i*0.035; arr[h].mod=hm[i]; });
+    return {arr:arr, hits:hits};
+  }
+  var P=pool(), cells=[];
+
+  P.arr.forEach(function(c,i){
+    var d=document.createElement('span');
+    d.className='pr-cell'; d.setAttribute('data-m',c.mod); d.textContent=c.mod;
+    grid.appendChild(d); cells.push(d);
+  });
+  DIMS.forEach(function(dim){
+    var l=document.createElement('span'); l.className='pr-lv'; l.textContent=dim; levels.appendChild(l);
+  });
+  var lvEls=levels.children;
+
+  function slack(l){ return 0.34*Math.pow(0.5,l); }
+  function tau(l){ return 0.46+0.028*l; }
+  function fmt(n){ return n.toLocaleString('en-US'); }
+
+  var timers=[];
+  function clearTimers(){ timers.forEach(clearTimeout); timers=[]; }
+
+  function run(){
+    clearTimers();
+    var alive=P.arr.map(function(){return true;}), ops=0;
+    cells.forEach(function(c){ c.className='pr-cell'; c.setAttribute('data-m', c.textContent); });
+    elAlive.textContent=N; elOps.innerHTML='0<small> / '+fmt(NAIVE)+'</small>';
+    elDim.innerHTML='32<small> / 1024</small>'; bar.style.width='3%';
+    for(var i=0;i<lvEls.length;i++) lvEls[i].className='pr-lv';
+
+    var step=reduce?0:620;
+    DIMS.forEach(function(dim,l){
+      timers.push(setTimeout(function(){
+        var entering=alive.filter(Boolean).length;
+        ops += entering*dim;
+
+        for(var i=0;i<lvEls.length;i++) lvEls[i].className = i<l?'pr-lv done':(i===l?'pr-lv now':'pr-lv');
+        bar.style.width = Math.max(3,(dim/D)*100)+'%';
+        elDim.innerHTML = fmt(dim)+'<small> / 1024</small>';
+
+        P.arr.forEach(function(c,i){
+          if(!alive[i]) return;
+          if(c.sim+slack(l) < tau(l)){ alive[i]=false; cells[i].classList.add('out'); }
+        });
+        var left=alive.filter(Boolean).length;
+        elAlive.textContent=left;
+        elOps.innerHTML=fmt(ops)+'<small> / '+fmt(NAIVE)+'</small>';
+
+        if(l===DIMS.length-1){
+          timers.push(setTimeout(function(){
+            P.hits.forEach(function(h){ if(alive[h]) cells[h].classList.add('hit'); });
+            var save=Math.round((1-ops/NAIVE)*100);
+            elOps.innerHTML=fmt(ops)+'<small> / '+fmt(NAIVE)+' &middot; '+save+'% saved</small>';
+          }, reduce?0:340));
+        }
+      }, step*l));
+    });
+  }
+  runBtn.addEventListener('click', run);
+
+  var started=false;
+  var io=new IntersectionObserver(function(en){
+    if(en[0].isIntersecting && !started){ started=true; setTimeout(run, reduce?0:420); }
+  },{threshold:.25});
+  io.observe(grid);
+})();
+
+/* ==================================================================
+   2. Method tabs
+   ================================================================== */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('#method .tabs [role="tab"]'));
+  function show(t){
+    tabs.forEach(function(x){
+      var on = x===t;
+      x.setAttribute('aria-selected', on?'true':'false');
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ show(t); });
+    t.addEventListener('keydown', function(e){
+      var d = e.key==='ArrowRight'?1 : e.key==='ArrowLeft'?-1 : 0;
+      if(!d) return;
+      e.preventDefault();
+      var n=tabs[(i+d+tabs.length)%tabs.length]; n.focus(); show(n);
+    });
+  });
+})();
+
+/* ==================================================================
+   3. Result tables
+   ================================================================== */
+(function(){
+  var T={
+    mbeir:{
+      note:'R@5, except Fashion200K and FashionIQ which use R@10',
+      hint:'Scroll the table sideways to see all 16 M-BEIR columns.',
+      groups:[['t \u2192 i',3],['t \u2192 t',1],['t \u2192 (i,t)',2],['i \u2192 t',3],['i \u2192 i',1],['(i,t) \u2192 t',2],['(i,t) \u2192 i',2],['(i,t) \u2192 (i,t)',2]],
+      cols:['VisualNews','MSCOCO','Fashion200K','WebQA','EDIS','WebQA','VisualNews','MSCOCO','Fashion200K','NIGHTS','OVEN','InfoSeek','FashionIQ','CIRR','OVEN','InfoSeek'],
+      zs:[
+        ['CLIP-L',[43.3,61.1,6.6,36.2,43.3,45.1,41.3,79.0,7.7,26.1,24.2,20.5,7.0,13.2,38.8,26.4]],
+        ['SigLIP',[30.1,75.7,36.5,39.8,27.0,43.5,30.8,88.2,34.2,28.9,29.7,25.1,14.4,22.7,41.7,27.4]],
+        ['Qwen3-Omni-30B-Th',[16.6,59.9,12.5,46.9,31.7,14.6,10.9,50.5,9.7,28.6,26.7,25.7,7.5,17.0,49.2,37.9]],
+        ['Qwen3-MRL',[32.5,57.2,19.0,50.3,39.8,47.1,20.4,55.0,15.7,32.7,28.5,26.3,25.4,21.2,54.0,42.8]],
+        ['MULTI-SCORE',[49.8,86.9,41.8,77.4,79.3,81.1,49.7,92.3,38.4,36.0,50.4,62.7,38.5,58.3,68.7,54.9],1]
+      ],
+      sup:[
+        ['UniIR-BLIP<sub>FF</sub>',[23.4,79.7,26.1,80.0,50.9,79.8,22.8,89.9,28.9,33.0,41.0,22.4,29.2,52.2,55.8,33.0]],
+        ['UniIR-CLIP<sub>SF</sub>',[42.6,81.1,18.0,84.7,59.4,78.7,43.1,92.3,18.3,32.0,45.5,27.9,24.4,44.6,67.6,48.9]],
+        ['GENIUS<sup>R</sup>',[27.4,78.0,16.2,44.6,44.3,60.6,28.4,91.1,16.3,30.2,41.9,20.7,19.3,39.5,52.5,30.1]],
+        ['LamRA-ret',[41.6,81.5,28.7,86.0,62.6,81.2,39.6,90.6,30.4,32.1,54.1,52.1,33.2,53.1,76.2,63.3]],
+        ['LamRA',[48.0,85.2,32.9,96.7,75.8,87.7,48.6,92.3,36.1,33.5,59.2,64.1,37.8,63.3,79.2,78.3]]
+      ]
+    },
+    vl:{
+      note:'R@1',
+      hint:'Urban-1K and Flickr30K in both directions, plus composed retrieval on GeneCIS.',
+      groups:[['t \u2192 i',2],['i \u2192 t',2],['(i,t) \u2192 i',1]],
+      cols:['Urban-1K','Flickr30K','Urban-1K','Flickr30K','GeneCIS'],
+      zs:[
+        ['CLIP-L',[52.8,67.3,68.7,87.2,13.3]],
+        ['Long-CLIP-L',[86.1,76.1,82.7,89.3,16.3]],
+        ['UniIR-CLIP',[75.0,78.7,78.4,94.2,16.8]],
+        ['E5-V',[84.0,79.5,82.4,88.2,18.5]],
+        ['MagicLens-L',[59.3,72.5,24.2,84.6,16.3]],
+        ['EVA-CLIP-18B',[81.7,83.3,83.3,96.7,13.6]],
+        ['Qwen3-Omni-30B-Th',[56.9,62.0,54.6,68.0,14.6]],
+        ['Qwen3-MRL',[67.3,69.4,63.6,73.9,19.5]],
+        ['MULTI-SCORE',[98.2,89.6,97.8,98.1,34.6],1]
+      ],
+      sup:[
+        ['LamRA-ret',[95.1,82.8,94.3,92.7,18.9]],
+        ['LamRA',[98.8,88.1,98.0,97.6,24.8]]
+      ]
+    },
+    video:{
+      note:'R@1',
+      hint:'Text to video and video to text, four benchmarks each.',
+      groups:[['t \u2192 v',4],['v \u2192 t',4]],
+      cols:['MSRVTT-1kA','MSVD','LSMDC','DiDeMo','MSRVTT-1kA','MSVD','LSMDC','DiDeMo'],
+      zs:[
+        ['MCQ-BridgeFormer',[26.0,43.6,12.2,25.6,null,null,null,null]],
+        ['OA-Trans',[23.4,null,null,23.5,null,null,null,null]],
+        ['LamRA',[44.7,52.4,null,null,null,null,null,null]],
+        ['Qwen3-Omni-30B-Th',[39.5,51.0,21.1,37.3,48.5,26.8,62.2,34.1]],
+        ['Qwen3-MRL',[33.3,37.6,15.6,31.9,30.5,21.2,39.7,28.5]],
+        ['MULTI-SCORE',[55.7,69.4,27.1,50.3,53.1,31.9,68.0,50.7],1]
+      ],
+      sup:[
+        ['MCQ-BridgeFormer',[37.6,52.0,17.9,37.0,null,null,null,null]],
+        ['OA-Trans',[35.8,39.1,18.2,34.8,17.5,null,null,null]],
+        ['T2VLAD',[29.5,null,14.3,null,31.8,null,14.2,null]],
+        ['X-Pool',[46.9,47.2,25.2,null,43.9,66.4,22.7,null]],
+        ['RPC',[47.3,38.5,22.8,34.7,46.3,48.1,22.0,33.4]],
+        ['NeighborRetr',[49.5,47.9,null,48.2,48.7,63.3,null,48.4]]
+      ]
+    },
+    audio:{
+      note:'R@1',
+      hint:'Text to audio, and text to joint audio plus video.',
+      groups:[['t \u2192 a',2],['t \u2192 (a,v)',1]],
+      cols:['AudioCaps','Clotho','AudioCaps'],
+      zs:[
+        ['AVR-VC3M',[8.7,10.6,3.0]],
+        ['Qwen2-Audio-7B',[29.7,18.3,23.5]],
+        ['Qwen2.5-Omni-7B',[31.1,18.5,30.9]],
+        ['Qwen3-Omni-30B-Th',[32.1,15.4,21.8]],
+        ['Qwen3-MRL',[35.4,17.9,22.7]],
+        ['MULTI-SCORE',[45.4,28.2,44.5],1]
+      ],
+      sup:[
+        ['SOTA (Oncescu et al.)',[24.3,6.7,28.1]],
+        ['AVR',[32.0,7.8,41.4]],
+        ['AVR-VC3M',[35.5,8.4,43.2]]
+      ]
+    }
+  };
+
+  var table=document.getElementById('resTable'),
+      note=document.getElementById('metricNote'),
+      hint=document.getElementById('tblHint');
+
+  function render(key){
+    var d=T[key], all=d.zs.concat(d.sup), n=d.cols.length;
+    var bestAll=[], bestZs=[];
+    for(var c=0;c<n;c++){
+      var a=-1,z=-1;
+      all.forEach(function(r){ if(r[1][c]!=null && r[1][c]>a) a=r[1][c]; });
+      d.zs.forEach(function(r){ if(r[1][c]!=null && r[1][c]>z) z=r[1][c]; });
+      bestAll.push(a); bestZs.push(z);
+    }
+    var h='<thead><tr class="grp"><th class="rowhead"></th>';
+    d.groups.forEach(function(g){ h+='<th colspan="'+g[1]+'"><span>'+g[0]+'</span></th>'; });
+    h+='</tr><tr><th class="rowhead">Method</th>';
+    d.cols.forEach(function(c){ h+='<th>'+c+'</th>'; });
+    h+='</tr></thead><tbody>';
+
+    function rows(list,label){
+      h+='<tr class="band"><td class="rowhead" colspan="'+(n+1)+'">'+label+'</td></tr>';
+      list.forEach(function(r){
+        h+='<tr class="'+(r[2]?'ours':'')+'"><td class="rowhead">'+r[0]+'</td>';
+        r[1].forEach(function(v,c){
+          if(v==null){ h+='<td style="color:#B9C0CE">&ndash;</td>'; return; }
+          var cls=[];
+          if(v===bestAll[c]) cls.push('best');
+          if(label==='Zero-shot' && v===bestZs[c]) cls.push('zsbest');
+          h+='<td class="'+cls.join(' ')+'">'+v.toFixed(1)+'</td>';
+        });
+        h+='</tr>';
+      });
+    }
+    rows(d.zs,'Zero-shot');
+    rows(d.sup,'Supervised');
+    h+='</tbody>';
+    table.innerHTML=h;
+    note.textContent=d.note;
+    hint.textContent=d.hint;
+  }
+
+  var rtabs=[].slice.call(document.querySelectorAll('.rtab'));
+  function pick(t){
+    rtabs.forEach(function(x){ x.setAttribute('aria-selected','false'); });
+    t.setAttribute('aria-selected','true');
+    render(t.dataset.t);
+  }
+  rtabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ pick(t); });
+    t.addEventListener('keydown', function(e){
+      var d = e.key==='ArrowRight'?1 : e.key==='ArrowLeft'?-1 : 0;
+      if(!d) return;
+      e.preventDefault();
+      var n=rtabs[(i+d+rtabs.length)%rtabs.length]; n.focus(); pick(n);
+    });
+  });
+  render('mbeir');
+})();
+
+/* ==================================================================
+   4. Figure carousel
+   ================================================================== */
+(function(){
+  var S=[
+    {src:'static/images/spider_chart_comparison.png', w:1500, h:1322,
+     t:'One method, twelve tasks',
+     x:'Zero-shot MULTI-SCORE against the best previously reported zero-shot number on each of the twelve retrieval tasks. The gain is widest on the composed and audio-visual tasks, where single-modality encoders have the least to work with.',
+     alt:'Radar chart comparing existing zero-shot methods with MULTI-SCORE across twelve retrieval tasks.'},
+    {src:'static/images/universal_retrieval.png', w:1275, h:1021,
+     t:'Accuracy against retrieval time',
+     x:'On a single pool of all 32 datasets, replacing Pyramid Rank with full-scale MRL or a dual encoder at Stage-1 improves R@1 only marginally while retrieval time roughly doubles or triples.',
+     alt:'Bar charts of retrieval time and R@1 for three Stage-1 variants across twelve tasks.'},
+    {src:'static/images/backbone_agnostic_gain.png', w:1900, h:768,
+     t:'The gain is not a bigger-model effect',
+     x:'Three different MLLMs used as the Stage-2 backbone all improve over the previous zero-shot state of the art on all twelve tasks. Qwen2.5-Omni-7B gains most, but every backbone gains.',
+     alt:'Bar chart of performance gain over previous state of the art for three MLLM backbones on twelve tasks.'},
+    {src:'static/images/ablation.png', w:1500, h:682,
+     t:'Every component earns its place',
+     x:'Ablation on MSRVTT-1kA. Pyramid Rank, the bidirectional CoT score and the QA score are each useful alone, and combining all three reaches R@1 of 55.7.',
+     alt:'Ablation bar chart on MSRVTT-1kA comparing combinations of the three components.'},
+    {src:'static/images/msbs.png', w:1305, h:496,
+     t:'A bigger shortlist is affordable',
+     x:'As the candidate budget K grows, Stage-2 has more to work with and recall climbs. Because Stage-1 stays cheap, that extra recall costs far less time than it would with naive full-scale MRL search. Bars show recall, the blue lines show time.',
+     alt:'Chart of recall and runtime against candidate budget K.'},
+    {src:'static/images/alpha_peak.jpg', w:1800, h:766,
+     t:'Mixing the two Stage-2 scores',
+     x:'R@1 across all 32 datasets for values of the mixing coefficient. Faded lines are individual datasets, bold lines are the averages. Peak zero-shot performance sits at 0.3 for image retrieval and 0.6 for audio and video.',
+     alt:'Line chart of R@1 against the alpha mixing coefficient for image and for audio and video retrieval.'},
+    {src:'static/images/epsilon_and_upperbound_histogram.png', w:782, h:240,
+     t:'Tolerance, and what the bound reveals',
+     x:'Left: a larger tolerance cuts Stage-1 time at a small cost in R@1. Even at the worst setting the method matches previous zero-shot state of the art. Right: the spread of estimated upper bounds tracks dataset difficulty, tight and right-shifted for MSCOCO, broad and left-skewed for FashionIQ.',
+     alt:'Two panels: retrieval time and R@1 against tolerance epsilon, and histograms of upper bounds for three datasets.'}
+  ];
+  var stage=document.getElementById('carStage'), dots=document.getElementById('carDots'),
+      tEl=document.getElementById('carTitle'), xEl=document.getElementById('carText'),
+      cEl=document.getElementById('carCount');
+  if(!stage) return;
+  var i=0;
+
+  S.forEach(function(s,k){
+    var f=document.createElement('div'); f.className='car-slide'; f.hidden=k!==0;
+    var im=document.createElement('img');
+    im.src=s.src; im.alt=s.alt; im.width=s.w; im.height=s.h;
+    im.loading = k===0?'eager':'lazy';
+    f.appendChild(im); stage.appendChild(f);
+
+    var b=document.createElement('button');
+    b.type='button'; b.setAttribute('aria-label','Figure '+(k+1)+': '+s.t);
+    b.addEventListener('click', function(){ go(k); });
+    dots.appendChild(b);
+  });
+
+  function go(k){
+    i=(k+S.length)%S.length;
+    [].forEach.call(stage.children, function(el,n){ el.hidden = n!==i; });
+    [].forEach.call(dots.children, function(el,n){ el.setAttribute('aria-current', n===i?'true':'false'); });
+    tEl.textContent=S[i].t; xEl.textContent=S[i].x;
+    cEl.textContent=(i+1)+' / '+S.length;
+  }
+  document.getElementById('carPrev').addEventListener('click', function(){ go(i-1); });
+  document.getElementById('carNext').addEventListener('click', function(){ go(i+1); });
+  document.getElementById('car').addEventListener('keydown', function(e){
+    if(e.key==='ArrowLeft'){ go(i-1); } else if(e.key==='ArrowRight'){ go(i+1); }
+  });
+  go(0);
+})();
+
+/* ==================================================================
+   5. Lightbox, copy, nav highlight
+   ================================================================== */
+(function(){
+  var lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
+  document.addEventListener('click', function(e){
+    var img=e.target.closest('.fig img, .car-slide img');
+    if(img){ lbImg.src=img.currentSrc||img.src; lbImg.alt=img.alt; lb.setAttribute('open',''); return; }
+    if(e.target.closest('#lb')) lb.removeAttribute('open');
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') lb.removeAttribute('open'); });
+
+  var btn=document.getElementById('copyBib');
+  btn.addEventListener('click', function(){
+    navigator.clipboard.writeText(document.getElementById('bib').textContent).then(function(){
+      btn.textContent='Copied'; setTimeout(function(){ btn.textContent='Copy BibTeX'; },1800);
+    }, function(){ btn.textContent='Press Ctrl+C'; });
+  });
+
+  var links=[].slice.call(document.querySelectorAll('.nav-links a'));
+  var secs=links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if(!x.isIntersecting) return;
+      var k=secs.indexOf(x.target);
+      links.forEach(function(a,n){ a.classList.toggle('on', n===k); });
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){ if(s) io.observe(s); });
+})();
+</script>
 </body>
 </html>
